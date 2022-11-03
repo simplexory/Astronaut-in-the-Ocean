@@ -58,7 +58,6 @@
 		BB72489629141B2D0057AB19 /* AITO */ = {
 			isa = PBXGroup;
 			children = (
-				BB7248B729144A6A0057AB19 /* TEST */,
 				BB7248B629144A3D0057AB19 /* Model */,
 				BB7248BD29145E6F0057AB19 /* Controller */,
 				BB7248BA29145B8E0057AB19 /* Helpers */,
@@ -93,13 +92,6 @@
 				BB7248B829144A840057AB19 /* AstronautModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		BB7248B729144A6A0057AB19 /* TEST */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TEST;
 			sourceTree = "<group>";
 		};
 		BB7248BA29145B8E0057AB19 /* Helpers */ = {
