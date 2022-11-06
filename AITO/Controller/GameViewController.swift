@@ -48,11 +48,12 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGameUI()
+        self.addTapGestureRecognizer()
+        self.setupGameUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        startGame()
+        self.startGame()
     }
     
     // MARK: gesture recognizer
@@ -154,19 +155,21 @@ final class ViewController: UIViewController {
     }
     
     private func setupGameUI() {
-        self.addTapGestureRecognizer()
-        self.configureFrameRateTimer()
-        self.configureSpawnApexTimer(with: speedMultiplyer)
         self.configurePlayerModel()
         self.configureApexesModel()
     }
     
     private func startGame() {
-        self.gameInProgress = true
         self.speedMultiplyer = 1
+        self.score = 0
+        self.configureFrameRateTimer()
+        self.configureSpawnApexTimer(with: speedMultiplyer)
+        self.gameInProgress = true
         self.frameRateTimer.fire()
         self.spawnApexTimer.fire()
         self.astronaut.startAnimating()
+        self.astronaut.isHidden = false
+        self.gameOverView.isHidden = true
     }
     
     private func gameOver() {
@@ -175,12 +178,21 @@ final class ViewController: UIViewController {
         self.spawnApexTimer.invalidate()
         self.astronaut.isHidden = true
         self.astronaut.stopAnimating()
+        self.gameOverView.isHidden = false
+        
+        for apex in apexes {
+            apex.removeFromSuperview()
+        }
+        
+        self.apexes = []
+        self.setupGameUI()
+        self.scoreLabel.text = "Score: \(score)"
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender {
         case retryButton:
-            break
+            self.startGame()
         case mainMenuButton:
             break
         default:
