@@ -8,19 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		BB72489829141B2D0057AB19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489729141B2D0057AB19 /* AppDelegate.swift */; };
-		BB72489C29141B2D0057AB19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489B29141B2D0057AB19 /* ViewController.swift */; };
+		BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489B29141B2D0057AB19 /* GameViewController.swift */; };
 		BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB72489D29141B2D0057AB19 /* Main.storyboard */; };
 		BB7248A129141B2F0057AB19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB7248A029141B2F0057AB19 /* Assets.xcassets */; };
 		BB7248A429141B2F0057AB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7248A229141B2F0057AB19 /* LaunchScreen.storyboard */; };
 		BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248B829144A840057AB19 /* AstronautModel.swift */; };
 		BB7248BC29145B9E0057AB19 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248BB29145B9E0057AB19 /* Move.swift */; };
 		BBBA6E30291807FB002048F9 /* Apex Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E2F291807FB002048F9 /* Apex Model.swift */; };
+		BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BB72489429141B2D0057AB19 /* AITO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AITO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72489729141B2D0057AB19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Base.lproj/AppDelegate.swift; sourceTree = "<group>"; };
-		BB72489B29141B2D0057AB19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BB72489B29141B2D0057AB19 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		BB72489E29141B2D0057AB19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB7248A029141B2F0057AB19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB7248A329141B2F0057AB19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -28,6 +29,7 @@
 		BB7248B829144A840057AB19 /* AstronautModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautModel.swift; sourceTree = "<group>"; };
 		BB7248BB29145B9E0057AB19 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		BBBA6E2F291807FB002048F9 /* Apex Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apex Model.swift"; sourceTree = "<group>"; };
+		BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		BB72489629141B2D0057AB19 /* AITO */ = {
 			isa = PBXGroup;
 			children = (
+				BBBA6E3829184038002048F9 /* Extension */,
 				BB7248B629144A3D0057AB19 /* Model */,
 				BB7248BD29145E6F0057AB19 /* Controller */,
 				BB7248BA29145B8E0057AB19 /* Helpers */,
@@ -108,9 +111,17 @@
 		BB7248BD29145E6F0057AB19 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BB72489B29141B2D0057AB19 /* ViewController.swift */,
+				BB72489B29141B2D0057AB19 /* GameViewController.swift */,
+				BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		BBBA6E3829184038002048F9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,10 +195,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */,
 				BB7248BC29145B9E0057AB19 /* Move.swift in Sources */,
 				BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */,
 				BBBA6E30291807FB002048F9 /* Apex Model.swift in Sources */,
-				BB72489C29141B2D0057AB19 /* ViewController.swift in Sources */,
+				BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */,
 				BB72489829141B2D0057AB19 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
