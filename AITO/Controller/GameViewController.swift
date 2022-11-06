@@ -50,6 +50,7 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         self.addTapGestureRecognizer()
         self.setupGameUI()
+        setupGameOverView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -198,5 +199,14 @@ final class GameViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    private func setupGameOverView() {
+        self.gameOverView.dropShadow()
+        self.gameOverView.roundCorners()
+        self.retryButton.dropShadow()
+        self.retryButton.roundCorners()
+        self.mainMenuButton.roundCorners()
+        self.mainMenuButton.dropShadow()
     }
 }
