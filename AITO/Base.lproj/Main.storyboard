@@ -49,6 +49,7 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="startGamePressed:" destination="yYn-X1-IP8" eventType="touchUpInside" id="0AG-y9-cEp"/>
@@ -68,6 +69,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="p9I-Lw-8Sr"/>
+                    <connections>
+                        <outlet property="mainMenuImageView" destination="L9V-QT-19E" id="iEe-qO-TRg"/>
+                        <outlet property="startGameButton" destination="J2X-7A-k7F" id="NaG-mU-mGf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CqO-uB-GlR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
