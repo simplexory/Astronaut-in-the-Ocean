@@ -14,6 +14,7 @@
 		BB7248A429141B2F0057AB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7248A229141B2F0057AB19 /* LaunchScreen.storyboard */; };
 		BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248B829144A840057AB19 /* AstronautModel.swift */; };
 		BB7248BC29145B9E0057AB19 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248BB29145B9E0057AB19 /* Move.swift */; };
+		BBBA6E30291807FB002048F9 /* Apex Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E2F291807FB002048F9 /* Apex Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		BB7248A529141B2F0057AB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7248B829144A840057AB19 /* AstronautModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautModel.swift; sourceTree = "<group>"; };
 		BB7248BB29145B9E0057AB19 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		BBBA6E2F291807FB002048F9 /* Apex Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apex Model.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				BB7248B829144A840057AB19 /* AstronautModel.swift */,
+				BBBA6E2F291807FB002048F9 /* Apex Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			files = (
 				BB7248BC29145B9E0057AB19 /* Move.swift in Sources */,
 				BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */,
+				BBBA6E30291807FB002048F9 /* Apex Model.swift in Sources */,
 				BB72489C29141B2D0057AB19 /* ViewController.swift in Sources */,
 				BB72489829141B2D0057AB19 /* AppDelegate.swift in Sources */,
 			);
