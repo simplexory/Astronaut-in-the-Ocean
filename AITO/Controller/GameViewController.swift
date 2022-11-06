@@ -190,6 +190,15 @@ final class GameViewController: UIViewController {
         self.scoreLabel.text = "Score: \(score)"
     }
     
+    private func setupGameOverView() {
+        self.gameOverView.dropShadow()
+        self.gameOverView.roundCorners()
+        self.retryButton.dropShadow()
+        self.retryButton.roundCorners()
+        self.mainMenuButton.roundCorners()
+        self.mainMenuButton.dropShadow()
+    }
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender {
         case retryButton:
@@ -199,14 +208,5 @@ final class GameViewController: UIViewController {
         default:
             break
         }
-    }
-    
-    private func setupGameOverView() {
-        self.gameOverView.dropShadow()
-        self.gameOverView.roundCorners()
-        self.retryButton.dropShadow()
-        self.retryButton.roundCorners()
-        self.mainMenuButton.roundCorners()
-        self.mainMenuButton.dropShadow()
     }
 }
