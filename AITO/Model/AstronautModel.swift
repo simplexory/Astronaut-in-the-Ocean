@@ -17,6 +17,10 @@ private extension Double {
     static let sizeWhileJumping = 1.5
 }
 
+private extension CGFloat {
+    static let playerMovementDivider: CGFloat = 3.2
+}
+
 private extension String {
     static let modelName = "astronaut_"
     static let fileFormat = ".png"
@@ -54,9 +58,9 @@ final class Astronaut: UIImageView {
             
             switch direction {
             case .left:
-                self.frame.origin.x -= self.frame.width / 3
+                self.frame.origin.x -= self.frame.width / .playerMovementDivider
             case .right:
-                self.frame.origin.x += self.frame.width / 3
+                self.frame.origin.x += self.frame.width / .playerMovementDivider
             }
         } completion: { isCancelled in
             guard !isCancelled else { return }
