@@ -17,7 +17,7 @@ private extension CGFloat {
 }
 
 private extension Int {
-    static let maxApexCount = 10
+    static let maxApexCount = 12
 }
 
 private extension TimeInterval {
