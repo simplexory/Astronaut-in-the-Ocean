@@ -26,7 +26,7 @@ private extension TimeInterval {
     static let apexMovementTime: TimeInterval = 6
 }
 
-final class ViewController: UIViewController {
+final class GameViewController: UIViewController {
     
     // MARK: var / let
     
@@ -194,7 +194,7 @@ final class ViewController: UIViewController {
         case retryButton:
             self.startGame()
         case mainMenuButton:
-            break
+            self.navigationController?.popViewController(animated: false)
         default:
             break
         }
