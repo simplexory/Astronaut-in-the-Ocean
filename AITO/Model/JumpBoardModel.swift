@@ -17,7 +17,7 @@ final class JumpBoard: UIImageView {
     var inMovement = false
     var isUsed = false
     
-    func configureJumpBoard() {
+    func setupJumpBoard() {
         self.layer.contentsGravity = .resize
         self.layer.borderWidth = 2
         self.image = UIImage(named: .modelName + .fileFormat)
@@ -33,6 +33,7 @@ final class JumpBoard: UIImageView {
         } completion: { _ in
             self.frame.origin.y = startY
             self.inMovement = false
+            self.isUsed = false
         }
     }
     

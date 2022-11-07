@@ -12,18 +12,21 @@ import Foundation
 
 private extension CGFloat {
     static let contentDivider: CGFloat = 6
-    static let maximumContentDivider: CGFloat = 10
-    static let paddingBottomMultiplyer: CGFloat = 2.5
+    static let maxContentDivider: CGFloat = 10
+    static let paddingBottomAstronautMultiplyer: CGFloat = 2.2
 }
 
 private extension Int {
-    static let maxApexCount = 12
+    static let apexObjectsCount = 12
+    static let jumpBoardObjectsCount = 3
 }
 
 private extension TimeInterval {
     static let frameRate: TimeInterval = 1 / 60
-    static let apexSpawnRate: TimeInterval = 2
-    static let apexMovementTime: TimeInterval = 6
+    static let apexSpawnRate: TimeInterval = 2.1
+    static let jumpBoardSpawnRate: TimeInterval = 6
+    static let movementTime: TimeInterval = 6
+    static let defaultJumpDuration: TimeInterval = 2.3
 }
 
 final class GameViewController: UIViewController {
@@ -37,11 +40,12 @@ final class GameViewController: UIViewController {
     
     private let astronaut = Astronaut()
     private var apexes: [Apex] = []
+    private var jumpBoards: [JumpBoard] = []
     private var frameRateTimer = Timer()
     private var spawnApexTimer = Timer()
+    private var spawnJumpBoardTimer = Timer()
     private var gameInProgress = false
     private var speedMultiplyer: Double = 1
-    private var retryGameView = UIView()
     private var score = 0
     
     // MARK: lifecycle
@@ -57,33 +61,13 @@ final class GameViewController: UIViewController {
         self.startGame()
     }
     
-    // MARK: gesture recognizer
-    
-    private func addTapGestureRecognizer() {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        self.view.addGestureRecognizer(recognizer)
-    }
-    
-    @objc
-    private func handleTap(_ recognizer: UITapGestureRecognizer) {
-        guard gameInProgress else { return }
-        
-        let xPoint = recognizer.location(in: self.view).x
-        
-        if xPoint <= self.view.frame.width / 2 {
-            astronaut.detectPlayerMove(direction: .left)
-        } else {
-            astronaut.detectPlayerMove(direction: .right)
-        }
-    }
-    
     // MARK: flow funcs
     
     private func configurePlayerModel() {
         let computedWidth = self.view.frame.width / .contentDivider
         let startPoint = CGPoint(
             x: self.view.frame.width / 2 - computedWidth / 2,
-            y: self.view.frame.height - computedWidth * .paddingBottomMultiplyer)
+            y: self.view.frame.height - computedWidth * .paddingBottomAstronautMultiplyer)
         let size = CGSize(width: computedWidth, height: computedWidth)
         
         self.astronaut.frame = CGRect(origin: startPoint, size: size)
@@ -92,17 +76,33 @@ final class GameViewController: UIViewController {
     }
     
     private func configureApexesModel() {
-        for _ in 0...Int.maxApexCount {
+        for _ in 0..<Int.apexObjectsCount {
             let apex = Apex()
-            let computedWidth = self.view.frame.width / .random(in: CGFloat.contentDivider...CGFloat.maximumContentDivider)
+            let computedWidth = self.view.frame.width / .random(in: CGFloat.contentDivider...CGFloat.maxContentDivider)
             let size = CGSize(width: computedWidth, height: computedWidth)
             let origin = CGPoint(x: 0, y: -computedWidth)
             
             apex.frame = CGRect(origin: origin, size: size)
-            apex.configureApex()
+            apex.setupApex()
             
             apexes.append(apex)
             self.view.addSubview(apex)
+        }
+    }
+    
+    private func configureJumpBoardModel() {
+        let computeWidth = self.view.frame.width / .maxContentDivider
+        let size = CGSize(width: computeWidth, height: computeWidth)
+        let origin = CGPoint(x: 0, y: -computeWidth)
+        
+        for _ in 0..<Int.jumpBoardObjectsCount {
+            let jumpBoard = JumpBoard()
+            
+            jumpBoard.frame = CGRect(origin: origin, size: size)
+            jumpBoard.setupJumpBoard()
+            
+            jumpBoards.append(jumpBoard)
+            self.view.addSubview(jumpBoard)
         }
     }
     
@@ -123,6 +123,16 @@ final class GameViewController: UIViewController {
                         }
                     }
                 }
+                
+                for jumpBoard in self.jumpBoards {
+                    if let jumpBoardPresented = jumpBoard.layer.presentation() {
+                        guard !jumpBoard.isUsed else { break }
+                        
+                        if jumpBoard.inMovement && jumpBoardPresented.frame.intersects(astronautLayer.frame)  {
+                            self.astronaut.jump(duration: .defaultJumpDuration * (self.speedMultiplyer / 2))
+                        }
+                    }
+                }
             }
         })
     }
@@ -133,11 +143,29 @@ final class GameViewController: UIViewController {
             for apex in self.apexes {
                 if !apex.inMovement {
                     apex.startApexMovement(
-                        timeInterval: .apexMovementTime,
+                        timeInterval: .movementTime,
                         multiplyer: self.speedMultiplyer,
                         x: .random(in: 0...self.view.frame.width - apex.frame.width),
                         startY: -apex.frame.height,
-                        endY: self.view.frame.height + apex.frame.height)
+                        endY: self.view.frame.height + apex.frame.height
+                    )
+                    return
+                }
+            }
+        })
+    }
+    
+    private func configureSpawnJumpBoardTimer(with multiplyer: Double) {
+        self.spawnJumpBoardTimer = Timer.scheduledTimer(withTimeInterval: .jumpBoardSpawnRate * multiplyer, repeats: true, block: { _ in
+            for jumpBoard in self.jumpBoards {
+                if !jumpBoard.inMovement {
+                    jumpBoard.startJumpBoardMovement(
+                        timeInterval: .movementTime,
+                        multiplyer: self.speedMultiplyer,
+                        x: .random(in: 0...self.view.frame.width - jumpBoard.frame.width),
+                        startY: -jumpBoard.frame.height,
+                        endY: self.view.frame.height + jumpBoard.frame.height
+                    )
                     return
                 }
             }
@@ -151,20 +179,23 @@ final class GameViewController: UIViewController {
     
     private func refreshTimers() {
         self.spawnApexTimer.invalidate()
+        self.spawnJumpBoardTimer.invalidate()
         self.configureSpawnApexTimer(with: self.speedMultiplyer)
-        self.spawnApexTimer.fire()
+        self.configureSpawnJumpBoardTimer(with: self.speedMultiplyer)
     }
     
     private func setupGameUI() {
         self.configurePlayerModel()
         self.configureApexesModel()
+        self.configureJumpBoardModel()
     }
     
     private func startGame() {
         self.speedMultiplyer = 1
         self.score = 0
         self.configureFrameRateTimer()
-        self.configureSpawnApexTimer(with: speedMultiplyer)
+        self.configureSpawnApexTimer(with: self.speedMultiplyer)
+        self.configureSpawnJumpBoardTimer(with: self.speedMultiplyer)
         self.gameInProgress = true
         self.frameRateTimer.fire()
         self.spawnApexTimer.fire()
@@ -177,15 +208,22 @@ final class GameViewController: UIViewController {
         self.gameInProgress = false
         self.frameRateTimer.invalidate()
         self.spawnApexTimer.invalidate()
+        self.spawnJumpBoardTimer.invalidate()
         self.astronaut.isHidden = true
         self.astronaut.stopAnimating()
         self.gameOverView.isHidden = false
+        
+        for jumpBoard in jumpBoards {
+            jumpBoard.removeFromSuperview()
+        }
         
         for apex in apexes {
             apex.removeFromSuperview()
         }
         
+        self.jumpBoards = []
         self.apexes = []
+        
         self.setupGameUI()
         self.scoreLabel.text = "Score: \(score)"
     }
@@ -197,6 +235,26 @@ final class GameViewController: UIViewController {
         self.retryButton.roundCorners()
         self.mainMenuButton.roundCorners()
         self.mainMenuButton.dropShadow()
+    }
+    
+    // MARK: gesture recognizer
+    
+    private func addTapGestureRecognizer() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        self.view.addGestureRecognizer(recognizer)
+    }
+    
+    @objc
+    private func handleTap(_ recognizer: UITapGestureRecognizer) {
+        guard gameInProgress else { return }
+        
+        let xPoint = recognizer.location(in: self.view).x
+        
+        if xPoint <= self.view.frame.width / 2 {
+            astronaut.detectPlayerMove(direction: .left)
+        } else {
+            astronaut.detectPlayerMove(direction: .right)
+        }
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
