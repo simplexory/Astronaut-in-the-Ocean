@@ -70,7 +70,7 @@ final class Astronaut: UIImageView {
         
     }
     
-    func configurePlayerAnimation() {
+    func setupPlayerAnimation() {
         self.layer.contentsGravity = .resize
         self.layer.borderWidth = 2
         self.animationImages = setImageAnimationSet()
