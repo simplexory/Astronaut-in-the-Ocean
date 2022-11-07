@@ -16,9 +16,14 @@ private extension CGFloat {
     static let paddingBottomAstronautMultiplyer: CGFloat = 2.2
 }
 
+private extension Double {
+    static let defaultMultiplyer = 1.0
+}
+
 private extension Int {
     static let apexObjectsCount = 12
     static let jumpBoardObjectsCount = 3
+    static let startScore = 0
 }
 
 private extension TimeInterval {
@@ -45,8 +50,9 @@ final class GameViewController: UIViewController {
     private var spawnApexTimer = Timer()
     private var spawnJumpBoardTimer = Timer()
     private var gameInProgress = false
-    private var speedMultiplyer: Double = 1
-    private var score = 0
+    private var speedMultiplyer: Double = .defaultMultiplyer
+    private var scoreMultiplyer: Double = .defaultMultiplyer
+    private var score: Int = .startScore
     
     // MARK: lifecycle
     
@@ -54,7 +60,7 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         self.addTapGestureRecognizer()
         self.setupGameUI()
-        setupGameOverView()
+        self.setupGameOverView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,7 +69,7 @@ final class GameViewController: UIViewController {
     
     // MARK: flow funcs
     
-    private func configurePlayerModel() {
+    private func setupPlayerModel() {
         let computedWidth = self.view.frame.width / .contentDivider
         let startPoint = CGPoint(
             x: self.view.frame.width / 2 - computedWidth / 2,
@@ -71,11 +77,11 @@ final class GameViewController: UIViewController {
         let size = CGSize(width: computedWidth, height: computedWidth)
         
         self.astronaut.frame = CGRect(origin: startPoint, size: size)
-        self.astronaut.configurePlayerAnimation()
+        self.astronaut.setupPlayerAnimation()
         self.view.addSubview(self.astronaut)
     }
     
-    private func configureApexesModel() {
+    private func setupApexesModel() {
         for _ in 0..<Int.apexObjectsCount {
             let apex = Apex()
             let computedWidth = self.view.frame.width / .random(in: CGFloat.contentDivider...CGFloat.maxContentDivider)
@@ -90,7 +96,7 @@ final class GameViewController: UIViewController {
         }
     }
     
-    private func configureJumpBoardModel() {
+    private func setupJumpBoardModel() {
         let computeWidth = self.view.frame.width / .maxContentDivider
         let size = CGSize(width: computeWidth, height: computeWidth)
         let origin = CGPoint(x: 0, y: -computeWidth)
@@ -106,7 +112,7 @@ final class GameViewController: UIViewController {
         }
     }
     
-    private func configureFrameRateTimer() {
+    private func setupFrameRateTimer() {
         self.frameRateTimer = Timer.scheduledTimer(withTimeInterval: .frameRate, repeats: true, block: { _ in
             guard !self.astronaut.isJumpingNow else { return }
             
@@ -137,7 +143,7 @@ final class GameViewController: UIViewController {
         })
     }
     
-    private func configureSpawnApexTimer(with multiplyer: Double) {
+    private func setupSpawnApexTimer(with multiplyer: Double) {
         self.spawnApexTimer = Timer.scheduledTimer(
             withTimeInterval: .apexSpawnRate * multiplyer, repeats: true, block: { _ in
             for apex in self.apexes {
@@ -155,7 +161,7 @@ final class GameViewController: UIViewController {
         })
     }
     
-    private func configureSpawnJumpBoardTimer(with multiplyer: Double) {
+    private func setupSpawnJumpBoardTimer(with multiplyer: Double) {
         self.spawnJumpBoardTimer = Timer.scheduledTimer(withTimeInterval: .jumpBoardSpawnRate * multiplyer, repeats: true, block: { _ in
             for jumpBoard in self.jumpBoards {
                 if !jumpBoard.inMovement {
@@ -180,22 +186,22 @@ final class GameViewController: UIViewController {
     private func refreshTimers() {
         self.spawnApexTimer.invalidate()
         self.spawnJumpBoardTimer.invalidate()
-        self.configureSpawnApexTimer(with: self.speedMultiplyer)
-        self.configureSpawnJumpBoardTimer(with: self.speedMultiplyer)
+        self.setupSpawnApexTimer(with: self.speedMultiplyer)
+        self.setupSpawnJumpBoardTimer(with: self.speedMultiplyer)
     }
     
     private func setupGameUI() {
-        self.configurePlayerModel()
-        self.configureApexesModel()
-        self.configureJumpBoardModel()
+        self.setupPlayerModel()
+        self.setupApexesModel()
+        self.setupJumpBoardModel()
     }
     
     private func startGame() {
         self.speedMultiplyer = 1
         self.score = 0
-        self.configureFrameRateTimer()
-        self.configureSpawnApexTimer(with: self.speedMultiplyer)
-        self.configureSpawnJumpBoardTimer(with: self.speedMultiplyer)
+        self.setupFrameRateTimer()
+        self.setupSpawnApexTimer(with: self.speedMultiplyer)
+        self.setupSpawnJumpBoardTimer(with: self.speedMultiplyer)
         self.gameInProgress = true
         self.frameRateTimer.fire()
         self.spawnApexTimer.fire()
