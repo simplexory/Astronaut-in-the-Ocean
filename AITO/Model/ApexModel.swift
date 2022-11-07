@@ -16,7 +16,7 @@ final class Apex: UIImageView {
    
     var inMovement = false
     
-    func configureApex() {
+    func setupApex() {
         self.layer.contentsGravity = .resize
         self.layer.borderWidth = 2
         self.image = UIImage(named: .modelName + .fileFormat)
