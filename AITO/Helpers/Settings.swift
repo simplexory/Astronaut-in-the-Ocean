@@ -17,7 +17,7 @@ extension Int {
     static let coinObjectCount = 20
     static let startScore = 0
     static let defaultScoreMultiplyer = 1
-    static let scorePerCoin = 100
+    static let scorePerCoin = 5
 }
 
 extension TimeInterval {
@@ -26,5 +26,5 @@ extension TimeInterval {
     static let jumpBoardSpawnRate: TimeInterval = 6
     static let coinsSpawnRate: TimeInterval = 1.5
     static let movementTime: TimeInterval = 6
-    static let defaultJumpDuration: TimeInterval = 2.3
+    static let defaultJumpDuration: TimeInterval = 1.15
 }
