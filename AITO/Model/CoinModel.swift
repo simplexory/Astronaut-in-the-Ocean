@@ -11,11 +11,16 @@ final class Coin: UIImageView {
    
     var inMovement = false
     var isUsed = false
+    var startY = CGFloat()
+    var endY = CGFloat()
     
-    func setup() {
+    func setup(origin: CGPoint, size: CGSize, endY: CGFloat) {
         self.layer.contentsGravity = .resize
         self.layer.borderWidth = 2
         self.image = UIImage(named: .modelName + .fileFormat)
+        self.frame = CGRect(origin: origin, size: size)
+        self.startY = self.frame.origin.y
+        self.endY = endY
     }
     
     func take() {
@@ -28,15 +33,14 @@ final class Coin: UIImageView {
         self.isUsed = false
     }
     
-    func start(timeInterval: TimeInterval, multiplyer: Double, x: CGFloat, startY: CGFloat, endY: CGFloat) {
+    func start(x: CGFloat) {
         self.frame.origin.x = x
-        self.frame.origin.y = startY
+        self.frame.origin.y = self.startY
         self.inMovement = true
         
-        UIView.animate(withDuration: timeInterval * multiplyer, delay: 0, options: .curveLinear) {
-            self.frame.origin.y = endY
+        UIView.animate(withDuration: .movementTime * .speedMultiplyer, delay: 0, options: .curveLinear) {
+            self.frame.origin.y = self.endY
         } completion: { _ in
-            self.frame.origin.y = startY
             self.inMovement = false
             self.unTake()
         }
