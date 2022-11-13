@@ -1,10 +1,3 @@
-//
-//  JumpBoardModel.swift
-//  AITO
-//
-//  Created by Юра Ганкович on 6.11.22.
-//
-
 import UIKit
 
 private extension String {
@@ -28,12 +21,12 @@ final class JumpBoard: UIImageView {
         self.endY = endY
     }
     
-    func start(x: CGFloat) {
+    func start(x: CGFloat, multiply: Double) {
         self.frame.origin.x = x
         self.frame.origin.y = self.startY
         self.inMovement = true
         
-        UIView.animate(withDuration: .movementTime * .speedMultiplyer, delay: 0, options: .curveLinear) {
+        UIView.animate(withDuration: .movementTime * multiply, delay: 0, options: .curveLinear) {
             self.frame.origin.y = self.endY
         } completion: { _ in
             self.inMovement = false

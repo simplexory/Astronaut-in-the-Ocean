@@ -1,5 +1,3 @@
-import Foundation
-
 import UIKit
 
 private extension String {
@@ -33,12 +31,12 @@ final class Coin: UIImageView {
         self.isUsed = false
     }
     
-    func start(x: CGFloat) {
+    func start(x: CGFloat, multiply: Double) {
         self.frame.origin.x = x
         self.frame.origin.y = self.startY
         self.inMovement = true
         
-        UIView.animate(withDuration: .movementTime * .speedMultiplyer, delay: 0, options: .curveLinear) {
+        UIView.animate(withDuration: .movementTime * multiply, delay: 0, options: .curveLinear) {
             self.frame.origin.y = self.endY
         } completion: { _ in
             self.inMovement = false
