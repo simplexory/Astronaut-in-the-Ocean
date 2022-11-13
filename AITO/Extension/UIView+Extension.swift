@@ -1,10 +1,3 @@
-//
-//  UIView+Extension.swift
-//  AITO
-//
-//  Created by Юра Ганкович on 6.11.22.
-//
-
 import UIKit
 
 private extension CGFloat {

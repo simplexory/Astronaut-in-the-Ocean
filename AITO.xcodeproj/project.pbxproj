@@ -20,6 +20,7 @@
 		BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E3B29184C05002048F9 /* JumpBoardModel.swift */; };
 		BBBA6E6F2920478A002048F9 /* CoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E6E2920478A002048F9 /* CoinModel.swift */; };
 		BBBA6E71292048D8002048F9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E70292048D8002048F9 /* Settings.swift */; };
+		BBBA6E7929210C9C002048F9 /* BoostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E7829210C9C002048F9 /* BoostModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		BBBA6E3B29184C05002048F9 /* JumpBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpBoardModel.swift; sourceTree = "<group>"; };
 		BBBA6E6E2920478A002048F9 /* CoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinModel.swift; sourceTree = "<group>"; };
 		BBBA6E70292048D8002048F9 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		BBBA6E7829210C9C002048F9 /* BoostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				BBBA6E2F291807FB002048F9 /* ApexModel.swift */,
 				BBBA6E6E2920478A002048F9 /* CoinModel.swift */,
 				BBBA6E3B29184C05002048F9 /* JumpBoardModel.swift */,
+				BBBA6E7829210C9C002048F9 /* BoostModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */,
 				BBBA6E71292048D8002048F9 /* Settings.swift in Sources */,
 				BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */,
+				BBBA6E7929210C9C002048F9 /* BoostModel.swift in Sources */,
 				BBBA6E30291807FB002048F9 /* ApexModel.swift in Sources */,
 				BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */,
 				BBBA6E6F2920478A002048F9 /* CoinModel.swift in Sources */,

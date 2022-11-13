@@ -1,10 +1,3 @@
-//
-//  TestAnimationModel.swift
-//  AITO
-//
-//  Created by Юра Ганкович on 3.11.22.
-//
-
 import UIKit
 
 private extension TimeInterval {
