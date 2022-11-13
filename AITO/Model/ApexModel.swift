@@ -16,13 +16,13 @@ final class Apex: UIImageView {
    
     var inMovement = false
     
-    func setupApex() {
+    func setup() {
         self.layer.contentsGravity = .resize
         self.layer.borderWidth = 2
         self.image = UIImage(named: .modelName + .fileFormat)
     }
     
-    func startApexMovement(timeInterval: TimeInterval, multiplyer: Double, x: CGFloat, startY: CGFloat, endY: CGFloat) {
+    func start(timeInterval: TimeInterval, multiplyer: Double, x: CGFloat, startY: CGFloat, endY: CGFloat) {
         self.frame.origin.x = x
         self.frame.origin.y = startY
         self.inMovement = true

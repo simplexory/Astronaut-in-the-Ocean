@@ -35,6 +35,17 @@ final class Astronaut: UIImageView {
     private var staticModel = UIImage()
     var isJumpingNow = false
     
+    func hideModel(status: Status) {
+        switch status {
+        case .enable:
+            self.stopAnimating()
+            self.isHidden = true
+        case .disable:
+            self.startAnimating()
+            self.isHidden = false
+        }
+    }
+    
     func jump(duration: TimeInterval) {
         let startSize = self.frame.size
         self.isJumpingNow = true
@@ -52,8 +63,6 @@ final class Astronaut: UIImageView {
     
     func detectPlayerMove(direction: Move) {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) {
-            
-            
             switch direction {
             case .left:
                 self.frame.origin.x -= self.frame.width / .playerMovementDivider
@@ -67,10 +76,22 @@ final class Astronaut: UIImageView {
                 self.frame.origin.x = layer.frame.origin.x
             }
         }
-        
     }
     
-    func setupPlayerAnimation() {
+    func inCorrectPosition() -> Bool {
+        guard let layer = self.layer.presentation()?.frame else { return true }
+        guard let superview = self.superview?.frame else { return true }
+        
+        let currentXPos = layer.origin.x
+        
+        if currentXPos <= 0 || currentXPos >= superview.width - self.frame.width {
+            return false
+        }
+        
+        return true
+    }
+    
+    func setup() {
         self.layer.contentsGravity = .resize
         self.layer.borderWidth = 2
         self.animationImages = setImageAnimationSet()
