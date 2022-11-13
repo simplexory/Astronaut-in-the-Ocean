@@ -18,15 +18,14 @@ final class Coin: UIImageView {
         self.image = UIImage(named: .modelName + .fileFormat)
     }
     
-    func take(action: Status = .enable) {
-        switch action {
-        case .enable:
-            self.isHidden = true
-            self.isUsed = true
-        case .disable:
-            self.isHidden = false
-            self.isUsed = false
-        }
+    func take() {
+        self.isHidden = true
+        self.isUsed = true
+    }
+    
+    func unTake() {
+        self.isHidden = false
+        self.isUsed = false
     }
     
     func start(timeInterval: TimeInterval, multiplyer: Double, x: CGFloat, startY: CGFloat, endY: CGFloat) {
@@ -39,7 +38,7 @@ final class Coin: UIImageView {
         } completion: { _ in
             self.frame.origin.y = startY
             self.inMovement = false
-            self.take(action: .disable)
+            self.unTake()
         }
     }
     
