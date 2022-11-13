@@ -151,18 +151,42 @@
                                     <constraint firstItem="18f-xm-CeH" firstAttribute="top" secondItem="aiP-Ka-G3K" secondAttribute="bottom" constant="8" symbolic="YES" id="zXU-QG-Kjs"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCORE: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgL-xu-2Jh">
+                                <rect key="frame" x="15" y="942.5" width="292" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sT0-ag-m8S">
+                                <rect key="frame" x="317" y="942.5" width="82" height="19.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sT0-ag-m8S" secondAttribute="height" multiplier="4.2:1" id="8bY-KP-6wO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sT0-ag-m8S" secondAttribute="trailing" constant="15" id="19c-sy-dR8"/>
+                            <constraint firstItem="SgL-xu-2Jh" firstAttribute="height" secondItem="sT0-ag-m8S" secondAttribute="height" id="4Vg-RZ-cNY"/>
                             <constraint firstItem="wbG-ge-kMJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AHz-7X-2tg"/>
+                            <constraint firstItem="sT0-ag-m8S" firstAttribute="leading" secondItem="SgL-xu-2Jh" secondAttribute="trailing" constant="10" id="ChT-On-mqm"/>
+                            <constraint firstItem="sT0-ag-m8S" firstAttribute="bottom" secondItem="SgL-xu-2Jh" secondAttribute="bottom" id="WLO-1k-Acu"/>
                             <constraint firstItem="wbG-ge-kMJ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fqH-sd-8N6"/>
+                            <constraint firstItem="SgL-xu-2Jh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="lPZ-2I-fEb"/>
                             <constraint firstItem="wbG-ge-kMJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="oMj-Eb-UzS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SgL-xu-2Jh" secondAttribute="bottom" constant="-100" id="ofc-r3-3rT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wbG-ge-kMJ" secondAttribute="trailing" constant="40" id="xDh-1R-PdI"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="gameOverView" destination="wbG-ge-kMJ" id="rND-63-UA3"/>
+                        <outlet property="gameStatusBottomConstraint" destination="ofc-r3-3rT" id="Zrp-Bn-SRv"/>
+                        <outlet property="inGameMultiplyerLabel" destination="sT0-ag-m8S" id="Mxg-Yq-N7h"/>
+                        <outlet property="inGameScoreLabel" destination="SgL-xu-2Jh" id="wMR-Z6-Jbm"/>
                         <outlet property="mainMenuButton" destination="ZVz-Un-XSP" id="6r5-MG-jCr"/>
                         <outlet property="retryButton" destination="18f-xm-CeH" id="StJ-HI-KU7"/>
                         <outlet property="scoreLabel" destination="aiP-Ka-G3K" id="Tue-qR-bH9"/>
@@ -170,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="108"/>
+            <point key="canvasLocation" x="869.56521739130437" y="107.8125"/>
         </scene>
     </scenes>
     <resources>

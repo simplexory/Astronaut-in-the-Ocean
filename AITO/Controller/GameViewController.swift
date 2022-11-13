@@ -1,14 +1,17 @@
 import UIKit
 import Foundation
 
+private extension CGFloat {
+    static let constraintShowConstant: CGFloat = 15
+    static let constraintHideConstraint: CGFloat = -100
+}
+
 final class GameViewController: UIViewController {
     
     // MARK: var / let
     
     /**
-                ADD SCORE LABEL IN GAME
                 ADD SPEED BOUNTY
-                ADD MULTIPLYER LABEL IN GAME
                 ADD FONTS
                 ADD BACKGROUND
                 ADD SMTH BETTER THEN THIS SHITTY MODELS
@@ -18,6 +21,9 @@ final class GameViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var mainMenuButton: UIButton!
+    @IBOutlet weak var inGameScoreLabel: UILabel!
+    @IBOutlet weak var inGameMultiplyerLabel: UILabel!
+    @IBOutlet weak var gameStatusBottomConstraint: NSLayoutConstraint!
     
     var score: Int = .startScore
     private let astronaut = Astronaut()
@@ -210,6 +216,7 @@ final class GameViewController: UIViewController {
     
     private func addScore(_ number: Int) {
         self.score += number * self.scoreMultiplyer
+        self.updateScore()
     }
     
     private func increaseSpeed() {
@@ -238,10 +245,10 @@ final class GameViewController: UIViewController {
     }
     
     private func setupGameObjects() {
-        self.setupPlayerModel()
         self.setupApexesModel()
         self.setupJumpBoardsModel()
         self.setupCoinsModel()
+        self.setupPlayerModel()
     }
     
     private func startGame() {
@@ -251,6 +258,8 @@ final class GameViewController: UIViewController {
         self.switchTimers(true)
         self.gameInProgress = true
         self.astronaut.hideModel(false)
+        self.updateScore()
+        self.animateStatus(show: true)
     }
     
     private func gameOver() {
@@ -261,6 +270,7 @@ final class GameViewController: UIViewController {
         self.clearObjects()
         self.setupGameObjects()
         self.scoreLabel.text = "Score: \(score)"
+        self.animateStatus(show: false)
     }
     
     private func clearObjects() {
@@ -288,6 +298,24 @@ final class GameViewController: UIViewController {
         self.retryButton.roundCorners()
         self.mainMenuButton.roundCorners()
         self.mainMenuButton.dropShadow()
+    }
+    
+    private func updateScore() {
+        self.inGameScoreLabel.text = "SCORE: \(self.score)"
+        self.inGameMultiplyerLabel.text = "x\(self.scoreMultiplyer)"
+    }
+    
+    private func animateStatus(show: Bool) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            switch show {
+            case true:
+                self.gameStatusBottomConstraint.constant = .constraintShowConstant
+            case false:
+                self.gameStatusBottomConstraint.constant = .constraintHideConstraint
+            }
+            self.view.layoutIfNeeded()
+        }
+
     }
     
     // MARK: gesture recognizer

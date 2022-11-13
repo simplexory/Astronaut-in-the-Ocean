@@ -4,7 +4,7 @@ import UIKit
 extension CGFloat {
     static let contentDivider: CGFloat = 6
     static let maxContentDivider: CGFloat = 10
-    static let paddingBottomAstronautMultiplyer: CGFloat = 2.2
+    static let paddingBottomAstronautMultiplyer: CGFloat = 2.8
 }
 
 extension Double {
@@ -21,7 +21,7 @@ extension Int {
 }
 
 extension TimeInterval {
-    static let frameRate: TimeInterval = 1 / 60
+    static let frameRate: TimeInterval = 1 / 61
     static let apexSpawnRate: TimeInterval = 2.5
     static let jumpBoardSpawnRate: TimeInterval = 6
     static let coinsSpawnRate: TimeInterval = 1.5

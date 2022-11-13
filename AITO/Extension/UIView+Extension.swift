@@ -34,7 +34,6 @@ extension UIView {
         gradient.colors = [
             UIColor(white: 0, alpha: 0).cgColor,
             UIColor(white: 0, alpha: 0).cgColor,
-            UIColor.black.cgColor,
             UIColor.black.cgColor
         ]
         
