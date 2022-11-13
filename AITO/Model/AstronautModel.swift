@@ -35,12 +35,12 @@ final class Astronaut: UIImageView {
     private var staticModel = UIImage()
     var isJumpingNow = false
     
-    func hideModel(status: Status) {
+    func hideModel(_ status: Bool) {
         switch status {
-        case .enable:
+        case true:
             self.stopAnimating()
             self.isHidden = true
-        case .disable:
+        case false:
             self.startAnimating()
             self.isHidden = false
         }
