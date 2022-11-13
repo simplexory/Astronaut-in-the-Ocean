@@ -20,7 +20,6 @@
 		BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E3B29184C05002048F9 /* JumpBoardModel.swift */; };
 		BBBA6E6F2920478A002048F9 /* CoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E6E2920478A002048F9 /* CoinModel.swift */; };
 		BBBA6E71292048D8002048F9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E70292048D8002048F9 /* Settings.swift */; };
-		BBBA6E7329204F44002048F9 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E7229204F44002048F9 /* Status.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@
 		BBBA6E3B29184C05002048F9 /* JumpBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpBoardModel.swift; sourceTree = "<group>"; };
 		BBBA6E6E2920478A002048F9 /* CoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinModel.swift; sourceTree = "<group>"; };
 		BBBA6E70292048D8002048F9 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		BBBA6E7229204F44002048F9 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +115,6 @@
 			children = (
 				BB7248BB29145B9E0057AB19 /* Move.swift */,
 				BBBA6E70292048D8002048F9 /* Settings.swift */,
-				BBBA6E7229204F44002048F9 /* Status.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -213,7 +210,6 @@
 				BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */,
 				BBBA6E3A2918412F002048F9 /* UIView+Extension.swift in Sources */,
 				BB7248BC29145B9E0057AB19 /* Move.swift in Sources */,
-				BBBA6E7329204F44002048F9 /* Status.swift in Sources */,
 				BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */,
 				BBBA6E71292048D8002048F9 /* Settings.swift in Sources */,
 				BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */,

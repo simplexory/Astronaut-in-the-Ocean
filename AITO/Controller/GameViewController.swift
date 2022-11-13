@@ -5,11 +5,21 @@ final class GameViewController: UIViewController {
     
     // MARK: var / let
     
+    /**
+                ADD SCORE LABEL IN GAME
+                ADD SPEED BOUNTY
+                ADD MULTIPLYER LABEL IN GAME
+                ADD FONTS
+                ADD BACKGROUND
+                ADD SMTH BETTER THEN THIS SHITTY MODELS
+     */
+    
     @IBOutlet weak var gameOverView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var mainMenuButton: UIButton!
     
+    var score: Int = .startScore
     private let astronaut = Astronaut()
     private var apexes: [Apex] = []
     private var jumpBoards: [JumpBoard] = []
@@ -21,7 +31,6 @@ final class GameViewController: UIViewController {
     private var gameInProgress = false
     private var speedMultiplyer: Double = .defaultMultiplyer
     private var scoreMultiplyer: Int = .defaultScoreMultiplyer
-    private var score: Int = .startScore
     
     // MARK: lifecycle
     
@@ -97,42 +106,47 @@ final class GameViewController: UIViewController {
         }
     }
     
+    func checkCoinIntersect(layer: CALayer) {
+        for coin in self.coins.filter({ $0.isUsed == false && $0.inMovement }) {
+            if let coinPresented = coin.layer.presentation() {
+                if coinPresented.frame.intersects(layer.frame) {
+                    coin.take()
+                    self.addScore(.scorePerCoin)
+                }
+            }
+        }
+    }
+    
+    func checkApexIntersect(layer: CALayer) {
+        for apex in self.apexes.filter({ $0.inMovement }) {
+            if let apexPresented = apex.layer.presentation() {
+                if apexPresented.frame.intersects(layer.frame) {
+                    self.gameOver()
+                }
+            }
+        }
+    }
+    
+    func checkJumpBoardIntersect(layer: CALayer) {
+        for jumpBoard in self.jumpBoards.filter({ $0.isUsed == false && $0.inMovement }) {
+            if let jumpBoardPresented = jumpBoard.layer.presentation() {
+                if jumpBoardPresented.frame.intersects(layer.frame) {
+                    self.astronaut.jump(duration: .defaultJumpDuration)
+                }
+            }
+        }
+    }
+    
     private func checkObjectsIntersects() {
         if let astronautLayer = self.astronaut.layer.presentation() {
+            self.checkCoinIntersect(layer: astronautLayer)
             
-            for coin in self.coins {
-                if let coinPresented = coin.layer.presentation() {
-                    if coin.inMovement && coinPresented.frame.intersects(astronautLayer.frame) {
-                        coin.take()
-                        self.addScore(.scorePerCoin * scoreMultiplyer)
-                    }
-                }
-            }
+            if self.astronaut.isJumpingNow { return }
             
-            guard !self.astronaut.isJumpingNow else { return }
+            guard astronaut.inCorrectPosition() else { return gameOver() }
             
-            let astronautXPos = astronautLayer.frame.origin.x
-            if astronautXPos <= 0 || astronautXPos >= self.view.frame.width - self.astronaut.frame.width {
-                self.gameOver()
-            }
-            
-            for apex in self.apexes {
-                if let apexPresented = apex.layer.presentation() {
-                    if apex.inMovement && apexPresented.frame.intersects(astronautLayer.frame) {
-                        self.gameOver()
-                    }
-                }
-            }
-            
-            for jumpBoard in self.jumpBoards {
-                if let jumpBoardPresented = jumpBoard.layer.presentation() {
-                    guard !jumpBoard.isUsed else { break }
-                    
-                    if jumpBoard.inMovement && jumpBoardPresented.frame.intersects(astronautLayer.frame) {
-                        self.astronaut.jump(duration: .defaultJumpDuration * (self.speedMultiplyer / 2))
-                    }
-                }
-            }
+            self.checkApexIntersect(layer: astronautLayer)
+            self.checkJumpBoardIntersect(layer: astronautLayer)
         }
     }
     
@@ -204,18 +218,18 @@ final class GameViewController: UIViewController {
     }
     
     private func refreshTimers() {
-        self.switchTimers(action: .disable)
-        self.switchTimers(action: .enable)
+        self.switchTimers(true)
+        self.switchTimers(false)
     }
     
-    private func switchTimers(action: Status) {
-        switch action {
-        case .enable:
+    private func switchTimers(_ bool: Bool) {
+        switch bool {
+        case true:
             self.setupFrameRateTimer()
             self.setupSpawnApexTimer(with: self.speedMultiplyer)
             self.setupSpawnJumpBoardTimer(with: self.speedMultiplyer)
             self.setupSpawnCoinsTimer(with: self.speedMultiplyer)
-        case .disable:
+        case false:
             self.frameRateTimer.invalidate()
             self.spawnApexTimer.invalidate()
             self.spawnCoinsTimer.invalidate()
@@ -231,21 +245,19 @@ final class GameViewController: UIViewController {
     }
     
     private func startGame() {
+        self.gameOverView.isHidden = true
         self.speedMultiplyer = .defaultMultiplyer
         self.score = .startScore
-        self.switchTimers(action: .enable)
+        self.switchTimers(true)
         self.gameInProgress = true
-        self.astronaut.startAnimating()
-        self.astronaut.isHidden = false
-        self.gameOverView.isHidden = true
+        self.astronaut.hideModel(false)
     }
     
     private func gameOver() {
-        self.gameInProgress = false
-        self.switchTimers(action: .disable)
-        self.astronaut.isHidden = true
-        self.astronaut.stopAnimating()
         self.gameOverView.isHidden = false
+        self.gameInProgress = false
+        self.switchTimers(false)
+        self.astronaut.hideModel(true)
         self.clearObjects()
         self.setupGameObjects()
         self.scoreLabel.text = "Score: \(score)"
