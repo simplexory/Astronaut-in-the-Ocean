@@ -8,7 +8,8 @@ extension CGFloat {
 }
 
 extension Double {
-    static let defaultMultiplyer = 1.0
+    static let defaultSpeedMultiplyer = 1.0
+    static let speedMultiplyer = 0.88
 }
 
 extension Int {
