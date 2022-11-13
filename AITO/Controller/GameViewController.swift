@@ -25,7 +25,6 @@ final class GameViewController: UIViewController {
     @IBOutlet weak var inGameMultiplyerLabel: UILabel!
     @IBOutlet weak var gameStatusBottomConstraint: NSLayoutConstraint!
     
-    var score: Int = .startScore
     private let astronaut = Astronaut()
     private var apexes: [Apex] = []
     private var jumpBoards: [JumpBoard] = []
@@ -36,9 +35,10 @@ final class GameViewController: UIViewController {
     private var spawnBoostTimer = Timer()
     private var spawnJumpBoardTimer = Timer()
     private var spawnCoinsTimer = Timer()
-    private var gameInProgress = false
     private var speedMultiplyer: Double = .defaultSpeedMultiplyer
     private var scoreMultiplyer: Int = .defaultScoreMultiplyer
+    private var gameInProgress = false
+    private var score: Int = .startScore
     
     // MARK: lifecycle
     
@@ -56,11 +56,11 @@ final class GameViewController: UIViewController {
     // MARK: setup model funcs
     
     private func setupPlayerModel() {
-        let computedWidth = self.view.frame.width / .contentDivider
+        let computeSize = self.view.frame.width / .contentDivider
         let startPoint = CGPoint(
-            x: self.view.frame.width / 2 - computedWidth / 2,
-            y: self.view.frame.height - computedWidth * .paddingBottomAstronautMultiplyer)
-        let size = CGSize(width: computedWidth, height: computedWidth)
+            x: self.view.frame.width / 2 - computeSize / 2,
+            y: self.view.frame.height - computeSize * .paddingBottomAstronautMultiplyer)
+        let size = CGSize(width: computeSize, height: computeSize)
         
         self.astronaut.frame = CGRect(origin: startPoint, size: size)
         self.astronaut.setup()
@@ -70,57 +70,53 @@ final class GameViewController: UIViewController {
     private func setupApexesModel() {
         for _ in 0..<Int.apexObjectsCount {
             let apex = Apex()
-            let computedWidth = self.view.frame.width / .random(in: CGFloat.contentDivider...CGFloat.maxContentDivider)
-            let size = CGSize(width: computedWidth, height: computedWidth)
-            let origin = CGPoint(x: 0, y: -computedWidth)
+            let computeSize = self.view.frame.width / .random(in: CGFloat.contentDivider...CGFloat.maxContentDivider)
+            let size = CGSize(width: computeSize, height: computeSize)
+            let origin = CGPoint(x: 0, y: -computeSize)
             
-            apex.setup(origin: origin, size: size, endY: self.view.frame.height + computedWidth)
-            
+            apex.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
             apexes.append(apex)
             self.view.addSubview(apex)
         }
     }
     
     private func setupBoostersModel() {
-        let computedWidth = self.view.frame.width / CGFloat.contentDivider
-        let size = CGSize(width: computedWidth, height: computedWidth)
-        let origin = CGPoint(x: 0, y: -computedWidth)
+        let computeSize = self.view.frame.width / CGFloat.contentDivider
+        let size = CGSize(width: computeSize, height: computeSize)
+        let origin = CGPoint(x: 0, y: -computeSize)
         
         for _ in 0..<Int.apexObjectsCount {
             let boost = Boost()
-            boost.setup(origin: origin, size: size, endY: self.view.frame.height + computedWidth)
-            
-            boosters.append(boost)
+
+            boost.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
+            self.boosters.append(boost)
             self.view.addSubview(boost)
         }
     }
     
     private func setupCoinsModel() {
-        let computedWidth = self.view.frame.width / CGFloat.maxContentDivider
-        let size = CGSize(width: computedWidth, height: computedWidth)
-        let origin = CGPoint(x: 0, y: -computedWidth)
+        let computeSize = self.view.frame.width / CGFloat.maxContentDivider
+        let size = CGSize(width: computeSize, height: computeSize)
+        let origin = CGPoint(x: 0, y: -computeSize)
         
         for _ in 0..<Int.coinObjectCount {
             let coin = Coin()
             
-            coin.frame = CGRect(origin: origin, size: size)
-            coin.setup(origin: origin, size: size, endY: self.view.frame.height + computedWidth)
-            
-            coins.append(coin)
+            coin.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
+            self.coins.append(coin)
             self.view.addSubview(coin)
         }
     }
     
     private func setupJumpBoardsModel() {
-        let computeWidth = self.view.frame.width / .maxContentDivider
-        let size = CGSize(width: computeWidth, height: computeWidth)
-        let origin = CGPoint(x: 0, y: -computeWidth)
+        let computeSize = self.view.frame.width / .maxContentDivider
+        let size = CGSize(width: computeSize, height: computeSize)
+        let origin = CGPoint(x: 0, y: -computeSize)
         
         for _ in 0..<Int.jumpBoardObjectsCount {
             let jumpBoard = JumpBoard()
             
-            jumpBoard.setup(origin: origin, size: size, endY: self.view.frame.height + computeWidth)
-            
+            jumpBoard.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
             self.jumpBoards.append(jumpBoard)
             self.view.addSubview(jumpBoard)
         }
@@ -128,7 +124,7 @@ final class GameViewController: UIViewController {
     
     //MARK: intersects funcs
     
-    func checkCoinIntersect(layer: CALayer) {
+    private func checkCoinIntersect(layer: CALayer) {
         for coin in self.coins.filter({ $0.isUsed == false && $0.inMovement }) {
             if let coinPresented = coin.layer.presentation() {
                 if coinPresented.frame.intersects(layer.frame) {
@@ -139,7 +135,7 @@ final class GameViewController: UIViewController {
         }
     }
     
-    func checkBoostIntersect(layer: CALayer) {
+    private func checkBoostIntersect(layer: CALayer) {
         for boost in self.boosters.filter({ $0.isUsed == false && $0.inMovement }) {
             if let boostPresented = boost.layer.presentation() {
                 if boostPresented.frame.intersects(layer.frame) {
@@ -150,7 +146,7 @@ final class GameViewController: UIViewController {
         }
     }
     
-    func checkApexIntersect(layer: CALayer) {
+    private func checkApexIntersect(layer: CALayer) {
         for apex in self.apexes.filter({ $0.inMovement }) {
             if let apexPresented = apex.layer.presentation() {
                 if apexPresented.frame.intersects(layer.frame) {
@@ -160,7 +156,7 @@ final class GameViewController: UIViewController {
         }
     }
     
-    func checkJumpBoardIntersect(layer: CALayer) {
+    private func checkJumpBoardIntersect(layer: CALayer) {
         for jumpBoard in self.jumpBoards.filter({ $0.isUsed == false && $0.inMovement }) {
             if let jumpBoardPresented = jumpBoard.layer.presentation() {
                 if jumpBoardPresented.frame.intersects(layer.frame) {
@@ -177,7 +173,7 @@ final class GameViewController: UIViewController {
             
             if self.astronaut.isJumpingNow { return }
             
-            guard astronaut.inCorrectPosition() else { return gameOver() }
+            guard astronaut.inCorrectPosition() else { return self.gameOver() }
             
             self.checkApexIntersect(layer: astronautLayer)
             self.checkJumpBoardIntersect(layer: astronautLayer)
