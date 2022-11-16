@@ -36,7 +36,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2X-7A-k7F">
-                                <rect key="frame" x="30" y="712" width="354" height="50"/>
+                                <rect key="frame" x="30" y="762" width="354" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="LqD-Hz-x1l"/>
                                 </constraints>
@@ -55,14 +55,41 @@
                                     <action selector="startGamePressed:" destination="yYn-X1-IP8" eventType="touchUpInside" id="0AG-y9-cEp"/>
                                 </connections>
                             </button>
+                            <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPN-hF-aU1" userLabel="Player Info">
+                                <rect key="frame" x="25" y="586.5" width="364" height="165.5"/>
+                                <subviews>
+                                    <textField opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Player" borderStyle="roundedRect" placeholder="Player" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="qBy-ui-xMs">
+                                        <rect key="frame" x="8" y="8" width="348" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.30588235289999999" green="0.67843137249999996" blue="0.6588235294" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" textContentType="nickname"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name  - score" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbg-JQ-WMJ">
+                                        <rect key="frame" x="8" y="50" width="348" height="103"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="SPN-hF-aU1" secondAttribute="height" multiplier="2.2:1" id="OLQ-Il-nNC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wQ5-Xi-3Bd"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="L9V-QT-19E" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" id="4vu-xt-vIy"/>
+                            <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="SPN-hF-aU1" secondAttribute="trailing" constant="25" id="ArL-wP-hif"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="L9V-QT-19E" secondAttribute="trailing" id="KCn-da-Pzu"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="bottom" secondItem="L9V-QT-19E" secondAttribute="bottom" id="Pwc-xn-jfp"/>
-                            <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="bottom" secondItem="J2X-7A-k7F" secondAttribute="bottom" constant="100" id="cWn-9S-hum"/>
+                            <constraint firstItem="SPN-hF-aU1" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" constant="25" id="ZiG-0c-Dd9"/>
+                            <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="bottom" secondItem="J2X-7A-k7F" secondAttribute="bottom" constant="50" id="cWn-9S-hum"/>
+                            <constraint firstItem="J2X-7A-k7F" firstAttribute="top" secondItem="SPN-hF-aU1" secondAttribute="bottom" constant="10" id="e2Y-5L-Y5o"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="J2X-7A-k7F" secondAttribute="trailing" constant="30" id="jdg-pF-RSV"/>
                             <constraint firstItem="L9V-QT-19E" firstAttribute="top" secondItem="wQ5-Xi-3Bd" secondAttribute="top" id="zWe-ab-x3q"/>
                             <constraint firstItem="J2X-7A-k7F" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" constant="30" id="zs4-Mc-jTc"/>
@@ -71,12 +98,14 @@
                     <navigationItem key="navigationItem" id="p9I-Lw-8Sr"/>
                     <connections>
                         <outlet property="mainMenuImageView" destination="L9V-QT-19E" id="iEe-qO-TRg"/>
+                        <outlet property="playerNameTextField" destination="qBy-ui-xMs" id="Hts-f5-LFH"/>
+                        <outlet property="scoreTableLabel" destination="Jbg-JQ-WMJ" id="boK-RS-X97"/>
                         <outlet property="startGameButton" destination="J2X-7A-k7F" id="NaG-mU-mGf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CqO-uB-GlR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="108"/>
+            <point key="canvasLocation" x="76.811594202898561" y="107.8125"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">

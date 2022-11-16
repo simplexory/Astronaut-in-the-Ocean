@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB3ABB4429255262004B8AB4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB4329255262004B8AB4 /* StorageManager.swift */; };
+		BB3ABB46292553F7004B8AB4 /* PlayerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */; };
 		BB72489829141B2D0057AB19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489729141B2D0057AB19 /* AppDelegate.swift */; };
 		BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489B29141B2D0057AB19 /* GameViewController.swift */; };
 		BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB72489D29141B2D0057AB19 /* Main.storyboard */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB3ABB4329255262004B8AB4 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMatch.swift; sourceTree = "<group>"; };
 		BB72489429141B2D0057AB19 /* AITO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AITO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72489729141B2D0057AB19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Base.lproj/AppDelegate.swift; sourceTree = "<group>"; };
 		BB72489B29141B2D0057AB19 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 			children = (
 				BB7248BB29145B9E0057AB19 /* Move.swift */,
 				BBBA6E70292048D8002048F9 /* Settings.swift */,
+				BB3ABB4329255262004B8AB4 /* StorageManager.swift */,
+				BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -213,7 +219,9 @@
 				BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */,
 				BBBA6E3A2918412F002048F9 /* UIView+Extension.swift in Sources */,
 				BB7248BC29145B9E0057AB19 /* Move.swift in Sources */,
+				BB3ABB4429255262004B8AB4 /* StorageManager.swift in Sources */,
 				BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */,
+				BB3ABB46292553F7004B8AB4 /* PlayerMatch.swift in Sources */,
 				BBBA6E71292048D8002048F9 /* Settings.swift in Sources */,
 				BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */,
 				BBBA6E7929210C9C002048F9 /* BoostModel.swift in Sources */,
