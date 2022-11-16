@@ -3,7 +3,7 @@ import Foundation
 
 private extension CGFloat {
     static let constraintShowConstant: CGFloat = 15
-    static let constraintHideConstraint: CGFloat = -100
+    static let constraintHideConstant: CGFloat = -100
 }
 
 final class GameViewController: UIViewController {
@@ -13,7 +13,7 @@ final class GameViewController: UIViewController {
     /**
                 ADD FONTS
                 ADD BACKGROUND !
-                ADD BETTER DESIGN
+                ADD BETTER ASTRONAUT DESIGN
                 ADD UPDATE ANIMATION WHEN BOOST IS USED
      */
     
@@ -257,14 +257,6 @@ final class GameViewController: UIViewController {
         }
     }
     
-    private func setupGameObjects() {
-        self.setupApexesModel()
-        self.setupJumpBoardsModel()
-        self.setupCoinsModel()
-        self.setupBoostersModel()
-        self.setupPlayerModel()
-    }
-    
     private func startGame() {
         self.gameOverView.isHidden = true
         self.speedMultiplyer = .defaultSpeedMultiplyer
@@ -286,6 +278,14 @@ final class GameViewController: UIViewController {
         self.setupGameObjects()
         self.scoreLabel.text = "Score: \(score)"
         self.animateStatus(show: false)
+    }
+    
+    private func setupGameObjects() {
+        self.setupApexesModel()
+        self.setupJumpBoardsModel()
+        self.setupCoinsModel()
+        self.setupBoostersModel()
+        self.setupPlayerModel()
     }
     
     private func clearObjects() {
@@ -334,11 +334,10 @@ final class GameViewController: UIViewController {
             case true:
                 self.gameStatusBottomConstraint.constant = .constraintShowConstant
             case false:
-                self.gameStatusBottomConstraint.constant = .constraintHideConstraint
+                self.gameStatusBottomConstraint.constant = .constraintHideConstant
             }
             self.view.layoutIfNeeded()
         }
-
     }
     
     // MARK: gesture recognizer
