@@ -7,31 +7,31 @@ public extension String {
 public extension CGFloat {
     static let contentDivider: CGFloat = 6 // divide screen.width for models
     static let maxContentDivider: CGFloat = 10 // maximum divide screen.width for random apex size
-    static let paddingBottomPlayerMultiplyer: CGFloat = 2.8 // bottom player padding x * model.height
+    static let paddingBottomPlayerMultiplyer: CGFloat = 2.8 // bottom player padding = x * model.height
     static let playerMovementDivider: CGFloat = 3.2 // movement = model.width / x
 }
 
 public extension Double {
     static let defaultSpeedMultiplyer = 1.0 // start speed
-    static let speedMultiplyer = 0.93 // multiply speed by take() boost in game
+    static let speedMultiplyer = 0.95 // multiply speed by take() boost in game NOTE: < 1
     static let sizeWhileJumping = 1.5 // player model size while jumping
     static let rotatePlayerDegree = 25.0 // player rotating degree if move left/right
 }
 
 public extension Int {
     // counter for objects
-    static let apexObjectsCount = 18
-    static let boostObjectsCount = 3
-    static let jumpBoardObjectsCount = 5
-    static let coinObjectCount = 24
-    // --  // ---
+    static let apexObjectsCount = 8
+    static let boostObjectsCount = 2
+    static let jumpBoardObjectsCount = 3
+    static let coinObjectCount = 10
+    // Score
     static let startScore = 0
     static let defaultScoreMultiplyer = 1
-    static let scorePerCoin = 5 // score per 1 coin in game
+    static let scorePerCoin = 5 // score per coin in game
 }
 
 public extension TimeInterval {
-    static let frameRate: TimeInterval = 1 / 60 // framerate timer
+    static let frameRate: TimeInterval = 1 / 60 // framerate
     //  spawnrates
     static let apexSpawnRate: TimeInterval = 3.2
     static let jumpBoardSpawnRate: TimeInterval = 6.5
