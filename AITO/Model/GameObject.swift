@@ -3,11 +3,11 @@ import UIKit
 
 class GameObject {
     var model = UIImageView()
-    var isPresented = false
-    var isUsed = false
     var minY: CGFloat
     var maxY: CGFloat
     var maxX: CGFloat
+    var isPresented = false
+    var isUsed = false
     
     var frame: CGRect? {
         get {
@@ -17,7 +17,7 @@ class GameObject {
     }
     
     init(size: CGFloat, maxY: CGFloat, maxX: CGFloat) {
-        self.minY = -size
+        self.minY = -(maxX / .contentDivider)
         self.maxY = maxY
         self.maxX = maxX - size
 
@@ -45,17 +45,15 @@ class GameObject {
         let coefficient = (1 - currentY / path) * multiply
         let newDurationTime: TimeInterval = .movementTime * coefficient
         
-        self.model.frame.origin.y = currentY
         self.model.layer.removeAllAnimations()
+        self.model.frame.origin.y = currentY
         
         UIView.animate(withDuration: newDurationTime, delay: 0, options: .curveLinear) {
-            
             self.model.frame.origin.y = self.maxY
         } completion: { isCancelled in
             guard isCancelled else { return }
             self.setDefault()
         }
-
     }
     
     func start(multiply: Double) {
