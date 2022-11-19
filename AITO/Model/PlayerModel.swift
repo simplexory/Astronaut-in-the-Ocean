@@ -52,10 +52,9 @@ final class Player {
         self.waterCollision.stopAnimating()
         
         UIView.animateKeyframes(withDuration: .defaultJumpDuration, delay: 0, options: .autoreverse) {
-            self.model.frame.size = CGSize(
-                width: self.model.frame.size.width * Double.sizeWhileJumping,
-                height: self.model.frame.size.height * Double.sizeWhileJumping
-            )
+            let newSize = self.model.frame.size.width * Double.sizeWhileJumping
+            
+            self.model.frame.size = CGSize(width: newSize, height: newSize)
         } completion: { _ in
             self.model.frame.size = startSize
             self.isJumpingNow = false
