@@ -15,6 +15,10 @@ private extension String {
     static let gameOverText: String = "Game Over"
 }
 
+private extension TimeInterval {
+    static let statusAnimatingDuration: TimeInterval = 0.5
+}
+
 final class GameViewController: UIViewController {
     
     // MARK: var / let
@@ -65,11 +69,16 @@ final class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addTapGestureRecognizer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.setupObjects()
         self.setupView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.startGame()
     }
     
@@ -295,7 +304,7 @@ final class GameViewController: UIViewController {
     }
     
     private func animateStatus(show: Bool) {
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: .statusAnimatingDuration, delay: 0, options: .curveEaseInOut) {
             switch show {
             case true:
                 self.gameStatusBottomConstraint.constant = .constraintShowConstant
@@ -315,22 +324,22 @@ final class GameViewController: UIViewController {
     
     @objc
     private func handleTap(_ recognizer: UITapGestureRecognizer) {
-        guard gameInProgress else { return }
+        guard self.gameInProgress else { return }
         
         let xPoint = recognizer.location(in: self.view).x
         
         if xPoint <= self.view.frame.width / 2 {
-            player.detectPlayerMove(direction: .left)
+            self.player.detectPlayerMove(direction: .left)
         } else {
-            player.detectPlayerMove(direction: .right)
+            self.player.detectPlayerMove(direction: .right)
         }
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender {
-        case retryButton:
+        case self.retryButton:
             self.startGame()
-        case mainMenuButton:
+        case self.mainMenuButton:
             self.navigationController?.popViewController(animated: false)
         default:
             break
