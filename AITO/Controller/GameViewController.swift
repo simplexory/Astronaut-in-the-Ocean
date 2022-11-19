@@ -20,10 +20,9 @@ final class GameViewController: UIViewController {
     // MARK: var / let
     
     /** TODO:
-     
             ADD BACKGROUND !
-            ADD WATER COLISION WHILE PLAYER ON WATER
             ADD BETTER DESIGN BY IMAGES
+            ADD BETTER RANDOM OBJECT SPAWN
      */
     
     @IBOutlet weak var gameOverView: UIView!
