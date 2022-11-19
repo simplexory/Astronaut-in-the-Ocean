@@ -10,6 +10,13 @@
 		BB3ABB4429255262004B8AB4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB4329255262004B8AB4 /* StorageManager.swift */; };
 		BB3ABB46292553F7004B8AB4 /* PlayerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */; };
 		BB3ABB4A29256687004B8AB4 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB4929256687004B8AB4 /* GameObject.swift */; };
+		BB3ABB4F29293969004B8AB4 /* Cybrpnuk2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB3ABB4E29293969004B8AB4 /* Cybrpnuk2.ttf */; };
+		BB3ABB51292940C7004B8AB4 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB50292940C7004B8AB4 /* UIButton+Extension.swift */; };
+		BB3ABB53292943E7004B8AB4 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB52292943E7004B8AB4 /* UILabel+Extension.swift */; };
+		BB3ABB5529294528004B8AB4 /* Cyberthrone.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB3ABB5429294528004B8AB4 /* Cyberthrone.ttf */; };
+		BB3ABB5729294679004B8AB4 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB5629294679004B8AB4 /* UITextField+Extension.swift */; };
+		BB3ABB59292948E4004B8AB4 /* Cyberverse.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB3ABB58292948E4004B8AB4 /* Cyberverse.otf */; };
+		BB3ABB5B29297B93004B8AB4 /* WaterBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB5A29297B93004B8AB4 /* WaterBackground.swift */; };
 		BB72489829141B2D0057AB19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489729141B2D0057AB19 /* AppDelegate.swift */; };
 		BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489B29141B2D0057AB19 /* GameViewController.swift */; };
 		BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB72489D29141B2D0057AB19 /* Main.storyboard */; };
@@ -30,6 +37,13 @@
 		BB3ABB4329255262004B8AB4 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMatch.swift; sourceTree = "<group>"; };
 		BB3ABB4929256687004B8AB4 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		BB3ABB4E29293969004B8AB4 /* Cybrpnuk2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cybrpnuk2.ttf; sourceTree = "<group>"; };
+		BB3ABB50292940C7004B8AB4 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		BB3ABB52292943E7004B8AB4 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		BB3ABB5429294528004B8AB4 /* Cyberthrone.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cyberthrone.ttf; sourceTree = "<group>"; };
+		BB3ABB5629294679004B8AB4 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		BB3ABB58292948E4004B8AB4 /* Cyberverse.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cyberverse.otf; sourceTree = "<group>"; };
+		BB3ABB5A29297B93004B8AB4 /* WaterBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterBackground.swift; sourceTree = "<group>"; };
 		BB72489429141B2D0057AB19 /* AITO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AITO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72489729141B2D0057AB19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Base.lproj/AppDelegate.swift; sourceTree = "<group>"; };
 		BB72489B29141B2D0057AB19 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +73,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB3ABB4B2929391B004B8AB4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BB3ABB58292948E4004B8AB4 /* Cyberverse.otf */,
+				BB3ABB5429294528004B8AB4 /* Cyberthrone.ttf */,
+				BB3ABB4E29293969004B8AB4 /* Cybrpnuk2.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		BB72488B29141B2D0057AB19 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +107,7 @@
 				BB7248BD29145E6F0057AB19 /* Controller */,
 				BB7248BA29145B8E0057AB19 /* Helpers */,
 				BB7248AB29141B7E0057AB19 /* Default */,
+				BB3ABB4B2929391B004B8AB4 /* Fonts */,
 				BB7248AC29141BDB0057AB19 /* Assets */,
 			);
 			path = AITO;
@@ -92,9 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				BB72489729141B2D0057AB19 /* AppDelegate.swift */,
-				BB7248A529141B2F0057AB19 /* Info.plist */,
 				BB7248A229141B2F0057AB19 /* LaunchScreen.storyboard */,
 				BB72489D29141B2D0057AB19 /* Main.storyboard */,
+				BB7248A529141B2F0057AB19 /* Info.plist */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -111,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				BB7248B829144A840057AB19 /* PlayerModel.swift */,
+				BB3ABB5A29297B93004B8AB4 /* WaterBackground.swift */,
 				BB3ABB4929256687004B8AB4 /* GameObject.swift */,
 				BBBA6E2F291807FB002048F9 /* ApexModel.swift */,
 				BBBA6E6E2920478A002048F9 /* CoinModel.swift */,
@@ -123,9 +149,9 @@
 		BB7248BA29145B8E0057AB19 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BB3ABB4329255262004B8AB4 /* StorageManager.swift */,
 				BB7248BB29145B9E0057AB19 /* Move.swift */,
 				BBBA6E70292048D8002048F9 /* Settings.swift */,
-				BB3ABB4329255262004B8AB4 /* StorageManager.swift */,
 				BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */,
 			);
 			path = Helpers;
@@ -144,6 +170,9 @@
 			isa = PBXGroup;
 			children = (
 				BBBA6E392918412F002048F9 /* UIView+Extension.swift */,
+				BB3ABB50292940C7004B8AB4 /* UIButton+Extension.swift */,
+				BB3ABB52292943E7004B8AB4 /* UILabel+Extension.swift */,
+				BB3ABB5629294679004B8AB4 /* UITextField+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -206,9 +235,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB3ABB4F29293969004B8AB4 /* Cybrpnuk2.ttf in Resources */,
 				BB7248A429141B2F0057AB19 /* LaunchScreen.storyboard in Resources */,
+				BB3ABB5529294528004B8AB4 /* Cyberthrone.ttf in Resources */,
 				BB7248A129141B2F0057AB19 /* Assets.xcassets in Resources */,
 				BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */,
+				BB3ABB59292948E4004B8AB4 /* Cyberverse.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,10 +256,14 @@
 				BB3ABB4A29256687004B8AB4 /* GameObject.swift in Sources */,
 				BB7248BC29145B9E0057AB19 /* Move.swift in Sources */,
 				BB3ABB4429255262004B8AB4 /* StorageManager.swift in Sources */,
+				BB3ABB5B29297B93004B8AB4 /* WaterBackground.swift in Sources */,
 				BB7248B929144A840057AB19 /* PlayerModel.swift in Sources */,
 				BB3ABB46292553F7004B8AB4 /* PlayerMatch.swift in Sources */,
 				BBBA6E71292048D8002048F9 /* Settings.swift in Sources */,
+				BB3ABB53292943E7004B8AB4 /* UILabel+Extension.swift in Sources */,
+				BB3ABB51292940C7004B8AB4 /* UIButton+Extension.swift in Sources */,
 				BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */,
+				BB3ABB5729294679004B8AB4 /* UITextField+Extension.swift in Sources */,
 				BBBA6E7929210C9C002048F9 /* BoostModel.swift in Sources */,
 				BBBA6E30291807FB002048F9 /* ApexModel.swift in Sources */,
 				BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */,
