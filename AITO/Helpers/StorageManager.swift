@@ -5,7 +5,7 @@ private extension String {
     static let matchKey = "matchKey"
 }
 
-class StorageManager {
+final class StorageManager {
     static let shared = StorageManager()
     private init() {}
     

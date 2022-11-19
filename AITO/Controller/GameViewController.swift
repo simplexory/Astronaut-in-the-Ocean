@@ -1,5 +1,4 @@
 import UIKit
-import Foundation
 
 private extension CGFloat {
     static let constraintShowConstant: CGFloat = 15
@@ -10,11 +9,10 @@ final class GameViewController: UIViewController {
     
     // MARK: var / let
     
-    /**
-                ADD FONTS
-                ADD BACKGROUND !
-                ADD BETTER ASTRONAUT DESIGN
-                ADD UPDATE ANIMATION WHEN BOOST IS USED
+    /** TODO:
+            ADD FONTS
+            ADD BACKGROUND !
+            ADD BETTER ASTRONAUT DESIGN
      */
     
     @IBOutlet weak var gameOverView: UIView!
@@ -25,11 +23,11 @@ final class GameViewController: UIViewController {
     @IBOutlet weak var inGameMultiplyerLabel: UILabel!
     @IBOutlet weak var gameStatusBottomConstraint: NSLayoutConstraint!
     
-    private let astronaut = Astronaut()
-    private var apexes: [Apex] = []
-    private var jumpBoards: [JumpBoard] = []
-    private var coins: [Coin] = []
-    private var boosters: [Boost] = []
+    private let player = Player()
+    private var apexes: [GameObject] = []
+    private var jumpBoards: [GameObject] = []
+    private var coins: [GameObject] = []
+    private var boosters: [GameObject] = []
     private var frameRateTimer = Timer()
     private var spawnApexTimer = Timer()
     private var spawnBoostTimer = Timer()
@@ -40,12 +38,23 @@ final class GameViewController: UIViewController {
     private var gameInProgress = false
     private var score: Int = .startScore
     
+    private var currentObjects: [GameObject] {
+        get {
+            var objects: [GameObject] = []
+            objects.append(contentsOf: self.apexes.filter({ $0.isPresented }))
+            objects.append(contentsOf: self.coins.filter({ $0.isPresented }))
+            objects.append(contentsOf: self.jumpBoards.filter({ $0.isPresented }))
+            objects.append(contentsOf: self.boosters.filter({ $0.isPresented }))
+            return objects
+        }
+    }
+    
     // MARK: lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addTapGestureRecognizer()
-        self.setupGameObjects()
+        self.setupAll()
         self.setupGameOverView()
     }
     
@@ -56,79 +65,58 @@ final class GameViewController: UIViewController {
     // MARK: setup model funcs
     
     private func setupPlayerModel() {
-        let computeSize = self.view.frame.width / .contentDivider
+        let size = self.view.frame.width / .contentDivider
         let startPoint = CGPoint(
-            x: self.view.frame.width / 2 - computeSize / 2,
-            y: self.view.frame.height - computeSize * .paddingBottomAstronautMultiplyer)
-        let size = CGSize(width: computeSize, height: computeSize)
+            x: self.view.frame.width / 2 - size / 2,
+            y: self.view.frame.height - size * .paddingBottomPlayerMultiplyer)
         
-        self.astronaut.frame = CGRect(origin: startPoint, size: size)
-        self.astronaut.setup()
-        self.view.addSubview(self.astronaut)
+        self.player.setup(startPos: startPoint, size: size)
+        self.view.addSubview(self.player)
     }
     
-    private func setupApexesModel() {
+    private func setupGameObjects() {
+        let maxY = self.view.frame.height
+        let maxX = self.view.frame.width
+        // setup apexes
         for _ in 0..<Int.apexObjectsCount {
-            let apex = Apex()
-            let computeSize = self.view.frame.width / .random(in: CGFloat.contentDivider...CGFloat.maxContentDivider)
-            let size = CGSize(width: computeSize, height: computeSize)
-            let origin = CGPoint(x: 0, y: -computeSize)
+            let apexSize: CGFloat = self.view.frame.width / .random(in: .contentDivider...CGFloat.maxContentDivider)
+            let apex = Apex(size: apexSize, maxY: maxY, maxX: maxX)
             
-            apex.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
-            apexes.append(apex)
-            self.view.addSubview(apex)
+            self.apexes.append(apex)
+            self.view.addSubview(apex.model)
         }
-    }
-    
-    private func setupBoostersModel() {
-        let computeSize = self.view.frame.width / CGFloat.contentDivider
-        let size = CGSize(width: computeSize, height: computeSize)
-        let origin = CGPoint(x: 0, y: -computeSize)
-        
-        for _ in 0..<Int.apexObjectsCount {
-            let boost = Boost()
-
-            boost.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
-            self.boosters.append(boost)
-            self.view.addSubview(boost)
-        }
-    }
-    
-    private func setupCoinsModel() {
-        let computeSize = self.view.frame.width / CGFloat.maxContentDivider
-        let size = CGSize(width: computeSize, height: computeSize)
-        let origin = CGPoint(x: 0, y: -computeSize)
-        
+        //setup coins
+        let coinSize: CGFloat = self.view.frame.width / .maxContentDivider
         for _ in 0..<Int.coinObjectCount {
-            let coin = Coin()
+            let coin = Coin(size: coinSize, maxY: maxY, maxX: maxX)
             
-            coin.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
             self.coins.append(coin)
-            self.view.addSubview(coin)
+            self.view.addSubview(coin.model)
         }
-    }
-    
-    private func setupJumpBoardsModel() {
-        let computeSize = self.view.frame.width / .maxContentDivider
-        let size = CGSize(width: computeSize, height: computeSize)
-        let origin = CGPoint(x: 0, y: -computeSize)
-        
+        // setup boosters
+        let boosterSize = self.view.frame.width / CGFloat.contentDivider
+        for _ in 0..<Int.apexObjectsCount {
+            let boost = Boost(size: boosterSize, maxY: maxY, maxX: maxX)
+
+            self.boosters.append(boost)
+            self.view.addSubview(boost.model)
+        }
+        // setup jump boards
         for _ in 0..<Int.jumpBoardObjectsCount {
-            let jumpBoard = JumpBoard()
+            let jumpBoard = JumpBoard(size: coinSize, maxY: maxY, maxX: maxX)
             
-            jumpBoard.setup(origin: origin, size: size, endY: self.view.frame.height + computeSize)
             self.jumpBoards.append(jumpBoard)
-            self.view.addSubview(jumpBoard)
+            self.view.addSubview(jumpBoard.model)
         }
     }
     
     //MARK: intersects funcs
     
     private func checkCoinIntersect(layer: CALayer) {
-        for coin in self.coins.filter({ $0.isUsed == false && $0.inMovement }) {
-            if let coinPresented = coin.layer.presentation() {
-                if coinPresented.frame.intersects(layer.frame) {
-                    coin.take()
+        for coin in self.coins.filter({ $0.isPresented }) {
+            if let frame = coin.frame {
+                if frame.intersects(layer.frame) {
+                    coin.setDefault()
                     self.addScore(.scorePerCoin)
                 }
             }
@@ -136,10 +124,10 @@ final class GameViewController: UIViewController {
     }
     
     private func checkBoostIntersect(layer: CALayer) {
-        for boost in self.boosters.filter({ $0.isUsed == false && $0.inMovement }) {
-            if let boostPresented = boost.layer.presentation() {
-                if boostPresented.frame.intersects(layer.frame) {
-                    boost.take()
+        for boost in self.boosters.filter({ $0.isPresented }) {
+            if let frame = boost.frame {
+                if frame.intersects(layer.frame) {
+                    boost.setDefault()
                     self.increaseSpeed()
                 }
             }
@@ -147,9 +135,9 @@ final class GameViewController: UIViewController {
     }
     
     private func checkApexIntersect(layer: CALayer) {
-        for apex in self.apexes.filter({ $0.inMovement }) {
-            if let apexPresented = apex.layer.presentation() {
-                if apexPresented.frame.intersects(layer.frame) {
+        for apex in self.apexes.filter({ $0.isPresented }) {
+            if let frame = apex.frame {
+                if frame.intersects(layer.frame) {
                     self.gameOver()
                 }
             }
@@ -157,26 +145,60 @@ final class GameViewController: UIViewController {
     }
     
     private func checkJumpBoardIntersect(layer: CALayer) {
-        for jumpBoard in self.jumpBoards.filter({ $0.isUsed == false && $0.inMovement }) {
-            if let jumpBoardPresented = jumpBoard.layer.presentation() {
-                if jumpBoardPresented.frame.intersects(layer.frame) {
-                    self.astronaut.jump(duration: .defaultJumpDuration)
+        for jumpBoard in self.jumpBoards.filter({ $0.isPresented }) {
+            if let frame = jumpBoard.frame {
+                if frame.intersects(layer.frame) {
+                    self.player.jump(duration: .defaultJumpDuration)
+                    jumpBoard.setDefault()
                 }
             }
         }
     }
+    #warning("REMOVE THIS")
+//    private func badCheckIntersectIdea() {
+//        guard let playerLayer = self.player.layer.presentation() else { return }
+//
+//        if !player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
+//
+//        for object in currentObjects {
+//            guard let frame = object.frame else { break }
+//
+//            if frame.intersects(playerLayer.frame) {
+//                if self.player.isJumpingNow == false {
+//
+//                    if let _ = object as? Apex {
+//                        self.gameOver()
+//                    }
+//
+//                    if let _ = object as? JumpBoard {
+//                        self.player.jump(duration: .defaultJumpDuration)
+//                        object.setDefault()
+//                    }
+//                }
+//
+//                if let _ = object as? Coin {
+//                    self.addScore(.scorePerCoin)
+//                    object.setDefault()
+//                }
+//
+//                if let _ = object as? Boost {
+//                    self.increaseSpeed()
+//                    object.setDefault()
+//                }
+//            }
+//        }
+//    }
     
     private func checkObjectsIntersects() {
-        if let astronautLayer = self.astronaut.layer.presentation() {
-            self.checkCoinIntersect(layer: astronautLayer)
-            self.checkBoostIntersect(layer: astronautLayer)
-            
-            if self.astronaut.isJumpingNow { return }
-            
-            guard astronaut.inCorrectPosition() else { return self.gameOver() }
-            
-            self.checkApexIntersect(layer: astronautLayer)
-            self.checkJumpBoardIntersect(layer: astronautLayer)
+        if let playerLayer = self.player.layer.presentation() {
+            self.checkCoinIntersect(layer: playerLayer)
+            self.checkBoostIntersect(layer: playerLayer)
+
+            if self.player.isJumpingNow { return }
+            guard player.inCorrectPosition() else { return self.gameOver() }
+
+            self.checkApexIntersect(layer: playerLayer)
+            self.checkJumpBoardIntersect(layer: playerLayer)
         }
     }
     
@@ -191,37 +213,39 @@ final class GameViewController: UIViewController {
     private func setupSpawnApexTimer() {
         self.spawnApexTimer = Timer.scheduledTimer(
             withTimeInterval: .apexSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
-                guard let apex = self.apexes.filter({ $0.inMovement == false }).first else { return }
-                let randomX: CGFloat = .random(in: 0...self.view.frame.width - apex.frame.width)
-                apex.start(x: randomX, multiply: self.speedMultiplyer)
-        })
+                guard let apex = self.apexes.filter({ $0.isPresented == false }).first else { return }
+                apex.start(multiply: self.speedMultiplyer)
+            })
     }
     
     private func setupSpawnBoostTimer() {
         self.spawnBoostTimer = Timer.scheduledTimer(withTimeInterval: .boostSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
-            guard let boost = self.boosters.filter({ $0.inMovement == false }).first else { return }
-            let randomX: CGFloat = .random(in: 0...self.view.frame.width - boost.frame.width)
-            boost.start(x: randomX, multiply: self.speedMultiplyer)
+            guard let boost = self.boosters.filter({ $0.isPresented == false }).first else { return }
+            boost.start(multiply: self.speedMultiplyer)
         })
     }
     
     private func setupSpawnCoinsTimer() {
         self.spawnCoinsTimer = Timer.scheduledTimer(withTimeInterval: .coinsSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
-            guard let coin = self.coins.filter({ $0.inMovement == false }).first else { return }
-            let randomX: CGFloat = .random(in: 0...self.view.frame.width - coin.frame.width)
-            coin.start(x: randomX, multiply: self.speedMultiplyer)
+            guard let coin = self.coins.filter({ $0.isPresented == false }).first else { return }
+            coin.start(multiply: self.speedMultiplyer)
         })
     }
     
     private func setupSpawnJumpBoardTimer() {
         self.spawnJumpBoardTimer = Timer.scheduledTimer(withTimeInterval: .jumpBoardSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
-            guard let jumpBoard = self.jumpBoards.filter({ $0.inMovement == false }).first else { return }
-            let randomX: CGFloat = .random(in: 0...self.view.frame.width - jumpBoard.frame.width)
-            jumpBoard.start(x: randomX, multiply: self.speedMultiplyer)
+            guard let jumpBoard = self.jumpBoards.filter({ $0.isPresented == false }).first else { return }
+            jumpBoard.start(multiply: self.speedMultiplyer)
         })
     }
     
     //MARK: game flow funcs
+    
+    private func updateCurrentObjects() {
+        for object in currentObjects {
+            object.update(multiply: self.speedMultiplyer)
+        }
+    }
     
     private func addScore(_ number: Int) {
         self.score += number * self.scoreMultiplyer
@@ -231,6 +255,7 @@ final class GameViewController: UIViewController {
     private func increaseSpeed() {
         self.speedMultiplyer *= .speedMultiplyer
         self.scoreMultiplyer += 1
+        self.updateCurrentObjects()
         self.updateScore()
         self.refreshTimers()
     }
@@ -264,7 +289,7 @@ final class GameViewController: UIViewController {
         self.score = .startScore
         self.switchTimers(true)
         self.gameInProgress = true
-        self.astronaut.hideModel(false)
+        self.player.hideModel(false)
         self.updateScore()
         self.animateStatus(show: true)
     }
@@ -273,43 +298,22 @@ final class GameViewController: UIViewController {
         self.gameOverView.isHidden = false
         self.gameInProgress = false
         self.switchTimers(false)
-        self.astronaut.hideModel(true)
+        self.player.hideModel(true)
         self.clearObjects()
-        self.setupGameObjects()
         self.scoreLabel.text = "Score: \(score)"
         self.animateStatus(show: false)
     }
     
-    private func setupGameObjects() {
-        self.setupApexesModel()
-        self.setupJumpBoardsModel()
-        self.setupCoinsModel()
-        self.setupBoostersModel()
+    private func setupAll() {
+        self.setupGameObjects()
         self.setupPlayerModel()
     }
     
     private func clearObjects() {
-        for jumpBoard in self.jumpBoards {
-            jumpBoard.removeFromSuperview()
+        for object in currentObjects {
+            object.setDefault()
         }
-        
-        for apex in self.apexes {
-            apex.removeFromSuperview()
-        }
-        
-        for coin in self.coins {
-            coin.removeFromSuperview()
-        }
-        
-        for boost in self.boosters {
-            boost.removeFromSuperview()
-        }
-        
-        self.astronaut.removeFromSuperview()
-        self.jumpBoards.removeAll()
-        self.boosters.removeAll()
-        self.apexes.removeAll()
-        self.coins.removeAll()
+        self.player.setStartPosition()
     }
     
     // MARK: UI funcs
@@ -354,9 +358,9 @@ final class GameViewController: UIViewController {
         let xPoint = recognizer.location(in: self.view).x
         
         if xPoint <= self.view.frame.width / 2 {
-            astronaut.detectPlayerMove(direction: .left)
+            player.detectPlayerMove(direction: .left)
         } else {
-            astronaut.detectPlayerMove(direction: .right)
+            player.detectPlayerMove(direction: .right)
         }
     }
     

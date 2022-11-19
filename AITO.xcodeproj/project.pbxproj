@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		BB3ABB4429255262004B8AB4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB4329255262004B8AB4 /* StorageManager.swift */; };
 		BB3ABB46292553F7004B8AB4 /* PlayerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */; };
+		BB3ABB4A29256687004B8AB4 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB4929256687004B8AB4 /* GameObject.swift */; };
 		BB72489829141B2D0057AB19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489729141B2D0057AB19 /* AppDelegate.swift */; };
 		BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489B29141B2D0057AB19 /* GameViewController.swift */; };
 		BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB72489D29141B2D0057AB19 /* Main.storyboard */; };
 		BB7248A129141B2F0057AB19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB7248A029141B2F0057AB19 /* Assets.xcassets */; };
 		BB7248A429141B2F0057AB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7248A229141B2F0057AB19 /* LaunchScreen.storyboard */; };
-		BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248B829144A840057AB19 /* AstronautModel.swift */; };
+		BB7248B929144A840057AB19 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248B829144A840057AB19 /* PlayerModel.swift */; };
 		BB7248BC29145B9E0057AB19 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248BB29145B9E0057AB19 /* Move.swift */; };
 		BBBA6E30291807FB002048F9 /* ApexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E2F291807FB002048F9 /* ApexModel.swift */; };
 		BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		BB3ABB4329255262004B8AB4 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMatch.swift; sourceTree = "<group>"; };
+		BB3ABB4929256687004B8AB4 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		BB72489429141B2D0057AB19 /* AITO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AITO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72489729141B2D0057AB19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Base.lproj/AppDelegate.swift; sourceTree = "<group>"; };
 		BB72489B29141B2D0057AB19 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -35,7 +37,7 @@
 		BB7248A029141B2F0057AB19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB7248A329141B2F0057AB19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB7248A529141B2F0057AB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB7248B829144A840057AB19 /* AstronautModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronautModel.swift; sourceTree = "<group>"; };
+		BB7248B829144A840057AB19 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		BB7248BB29145B9E0057AB19 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		BBBA6E2F291807FB002048F9 /* ApexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApexModel.swift; sourceTree = "<group>"; };
 		BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -108,7 +110,8 @@
 		BB7248B629144A3D0057AB19 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BB7248B829144A840057AB19 /* AstronautModel.swift */,
+				BB7248B829144A840057AB19 /* PlayerModel.swift */,
+				BB3ABB4929256687004B8AB4 /* GameObject.swift */,
 				BBBA6E2F291807FB002048F9 /* ApexModel.swift */,
 				BBBA6E6E2920478A002048F9 /* CoinModel.swift */,
 				BBBA6E3B29184C05002048F9 /* JumpBoardModel.swift */,
@@ -218,9 +221,10 @@
 			files = (
 				BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */,
 				BBBA6E3A2918412F002048F9 /* UIView+Extension.swift in Sources */,
+				BB3ABB4A29256687004B8AB4 /* GameObject.swift in Sources */,
 				BB7248BC29145B9E0057AB19 /* Move.swift in Sources */,
 				BB3ABB4429255262004B8AB4 /* StorageManager.swift in Sources */,
-				BB7248B929144A840057AB19 /* AstronautModel.swift in Sources */,
+				BB7248B929144A840057AB19 /* PlayerModel.swift in Sources */,
 				BB3ABB46292553F7004B8AB4 /* PlayerMatch.swift in Sources */,
 				BBBA6E71292048D8002048F9 /* Settings.swift in Sources */,
 				BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */,

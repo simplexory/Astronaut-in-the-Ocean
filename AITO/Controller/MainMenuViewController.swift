@@ -1,18 +1,11 @@
 import UIKit
 
-class MainMenuViewController: UIViewController {
+final class MainMenuViewController: UIViewController {
     
     @IBOutlet weak var mainMenuImageView: UIImageView!
     @IBOutlet weak var startGameButton: UIButton!
     @IBOutlet weak var playerNameTextField: UITextField!
     @IBOutlet weak var scoreTableLabel: UILabel!
-    
-    private var match: PlayerMatch?
-    
-    override func viewDidLoad() {
-        guard let lastMatch = StorageManager.shared.loadMatch() else { return }
-        self.match = lastMatch
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,7 +27,6 @@ class MainMenuViewController: UIViewController {
         if let playerName = self.playerNameTextField.text {
             StorageManager.shared.saveName(playerName)
         }
-        
         
         self.navigationController?.pushViewController(controller, animated: false)
     }

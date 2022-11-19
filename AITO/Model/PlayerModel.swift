@@ -14,11 +14,13 @@ private extension Int {
     static let endImageNumber = 3
 }
 
-final class Astronaut: UIImageView {
+final class Player: UIImageView {
     
     private var imgAnimationSet: [UIImage] = []
     private var staticModel = UIImage()
+    private var isAnimated: (state: Bool, direction: Move?) = (false, nil)
     var isJumpingNow = false
+    var startPos: CGPoint?
     
     func hideModel(_ status: Bool) {
         switch status {
@@ -54,9 +56,9 @@ final class Astronaut: UIImageView {
             case .right:
                 self.frame.origin.x += self.frame.width / .playerMovementDivider
             }
+            
         } completion: { isCancelled in
             guard !isCancelled else { return }
-            
             if let layer = self.layer.presentation() {
                 self.frame.origin.x = layer.frame.origin.x
             }
@@ -76,7 +78,11 @@ final class Astronaut: UIImageView {
         return true
     }
     
-    func setup() {
+    func setup(startPos: CGPoint, size: CGFloat) {
+        let cgSize = CGSize(width: size, height: size)
+        
+        self.startPos = startPos
+        self.frame = CGRect(origin: startPos, size: cgSize)
         self.layer.contentsGravity = .resize
         self.layer.borderWidth = 2
         self.animationImages = setImageAnimationSet()
@@ -97,6 +103,12 @@ final class Astronaut: UIImageView {
         }
         
         return imgListArray
+    }
+    
+    func setStartPosition() {
+        if let startPos = startPos {
+            self.frame.origin = startPos
+        }
     }
     
 }
