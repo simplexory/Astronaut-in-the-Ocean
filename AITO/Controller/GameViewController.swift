@@ -22,9 +22,9 @@ final class GameViewController: UIViewController {
     /** TODO:
             ADD BACKGROUND !
             ADD BETTER DESIGN BY IMAGES
-            ADD BETTER RANDOM OBJECT SPAWN
      */
     
+    @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var gameOverView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var gameOverLabel: UILabel!
@@ -76,47 +76,47 @@ final class GameViewController: UIViewController {
     // MARK: setup model funcs
     
     private func setupPlayerModel() {
-        let viewWidth = self.view.frame.width
-        let viewHeight = self.view.frame.height
+        let viewWidth = self.gameView.frame.width
+        let viewHeight = self.gameView.frame.height
         
         self.player.setup(viewWidth: viewWidth, viewHeight: viewHeight)
-        self.view.addSubview(self.player.waterCollision)
-        self.view.addSubview(self.player.model)
+        self.gameView.addSubview(self.player.waterCollision)
+        self.gameView.addSubview(self.player.model)
     }
     
     private func setupGameObjects() {
-        let maxY = self.view.frame.height
-        let maxX = self.view.frame.width
+        let maxY = self.gameView.frame.height
+        let maxX = self.gameView.frame.width
         // setup apexes
         for _ in 0..<Int.apexObjectsCount {
-            let apexSize: CGFloat = self.view.frame.width / .random(in: .contentDivider...CGFloat.maxContentDivider)
+            let apexSize: CGFloat = self.gameView.frame.width / .random(in: .contentDivider...CGFloat.maxContentDivider)
             let apex = Apex(size: apexSize, maxY: maxY, maxX: maxX)
             
             self.apexes.append(apex)
-            self.view.addSubview(apex.model)
+            self.gameView.addSubview(apex.model)
         }
         //setup coins
-        let coinSize: CGFloat = self.view.frame.width / .maxContentDivider
+        let coinSize: CGFloat = self.gameView.frame.width / .maxContentDivider
         for _ in 0..<Int.coinObjectCount {
             let coin = Coin(size: coinSize, maxY: maxY, maxX: maxX)
             
             self.coins.append(coin)
-            self.view.addSubview(coin.model)
+            self.gameView.addSubview(coin.model)
         }
         // setup boosters
-        let boosterSize = self.view.frame.width / CGFloat.contentDivider
+        let boosterSize = self.gameView.frame.width / CGFloat.contentDivider
         for _ in 0..<Int.apexObjectsCount {
             let boost = Boost(size: boosterSize, maxY: maxY, maxX: maxX)
 
             self.boosters.append(boost)
-            self.view.addSubview(boost.model)
+            self.gameView.addSubview(boost.model)
         }
         // setup jump boards
         for _ in 0..<Int.jumpBoardObjectsCount {
             let jumpBoard = JumpBoard(size: coinSize, maxY: maxY, maxX: maxX)
             
             self.jumpBoards.append(jumpBoard)
-            self.view.addSubview(jumpBoard.model)
+            self.gameView.addSubview(jumpBoard.model)
         }
     }
     

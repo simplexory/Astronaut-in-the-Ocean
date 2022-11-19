@@ -127,6 +127,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RC5-pz-dnC" userLabel="GameView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view hidden="YES" alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbG-ge-kMJ">
                                 <rect key="frame" x="40" y="336.5" width="334" height="223"/>
                                 <subviews>
@@ -213,10 +217,14 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sT0-ag-m8S" secondAttribute="trailing" constant="15" id="19c-sy-dR8"/>
                             <constraint firstItem="SgL-xu-2Jh" firstAttribute="height" secondItem="sT0-ag-m8S" secondAttribute="height" id="4Vg-RZ-cNY"/>
-                            <constraint firstItem="wbG-ge-kMJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AHz-7X-2tg"/>
+                            <constraint firstItem="wbG-ge-kMJ" firstAttribute="centerX" secondItem="RC5-pz-dnC" secondAttribute="centerX" id="AHz-7X-2tg"/>
                             <constraint firstItem="sT0-ag-m8S" firstAttribute="leading" secondItem="SgL-xu-2Jh" secondAttribute="trailing" constant="10" id="ChT-On-mqm"/>
+                            <constraint firstAttribute="bottom" secondItem="RC5-pz-dnC" secondAttribute="bottom" id="I4L-lb-VLh"/>
+                            <constraint firstItem="RC5-pz-dnC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QgM-Tb-cCp"/>
+                            <constraint firstAttribute="trailing" secondItem="RC5-pz-dnC" secondAttribute="trailing" id="Sq9-Fo-3SM"/>
                             <constraint firstItem="sT0-ag-m8S" firstAttribute="bottom" secondItem="SgL-xu-2Jh" secondAttribute="bottom" id="WLO-1k-Acu"/>
-                            <constraint firstItem="wbG-ge-kMJ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fqH-sd-8N6"/>
+                            <constraint firstItem="wbG-ge-kMJ" firstAttribute="centerY" secondItem="RC5-pz-dnC" secondAttribute="centerY" id="fqH-sd-8N6"/>
+                            <constraint firstItem="RC5-pz-dnC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="iah-GL-Oyp"/>
                             <constraint firstItem="SgL-xu-2Jh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="lPZ-2I-fEb"/>
                             <constraint firstItem="wbG-ge-kMJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="oMj-Eb-UzS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SgL-xu-2Jh" secondAttribute="bottom" constant="-100" id="ofc-r3-3rT"/>
@@ -227,6 +235,7 @@
                         <outlet property="gameOverLabel" destination="hdM-U7-Ive" id="lKE-1E-Ntn"/>
                         <outlet property="gameOverView" destination="wbG-ge-kMJ" id="rND-63-UA3"/>
                         <outlet property="gameStatusBottomConstraint" destination="ofc-r3-3rT" id="Zrp-Bn-SRv"/>
+                        <outlet property="gameView" destination="RC5-pz-dnC" id="KYr-dH-DQL"/>
                         <outlet property="inGameMultiplyerLabel" destination="sT0-ag-m8S" id="Mxg-Yq-N7h"/>
                         <outlet property="inGameScoreLabel" destination="SgL-xu-2Jh" id="wMR-Z6-Jbm"/>
                         <outlet property="mainMenuButton" destination="ZVz-Un-XSP" id="6r5-MG-jCr"/>
