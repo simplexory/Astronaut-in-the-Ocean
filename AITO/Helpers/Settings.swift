@@ -1,5 +1,9 @@
 import UIKit
 
+public extension String {
+    static let fileFormat = ".png"
+}
+
 public extension CGFloat {
     static let contentDivider: CGFloat = 6 // divide screen.width for models
     static let maxContentDivider: CGFloat = 10 // maximum divide screen.width for random apex size

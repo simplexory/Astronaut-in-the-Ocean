@@ -2,7 +2,6 @@ import UIKit
 
 private extension String {
     static let modelName = "boost"
-    static let fileFormat = ".png"
 }
 
 final class Boost: GameObject {

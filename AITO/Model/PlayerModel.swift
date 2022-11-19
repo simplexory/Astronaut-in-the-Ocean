@@ -6,7 +6,6 @@ private extension TimeInterval {
 
 private extension String {
     static let modelName = "astronaut_"
-    static let fileFormat = ".png"
 }
 
 private extension Int {

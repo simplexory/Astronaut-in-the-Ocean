@@ -2,7 +2,6 @@ import UIKit
 
 private extension String {
     static let modelName = "jumpboard"
-    static let fileFormat = ".png"
 }
 
 final class JumpBoard: GameObject {

@@ -2,7 +2,6 @@ import UIKit
 
 private extension String {
     static let modelName = "coin"
-    static let fileFormat = ".png"
 }
 
 final class Coin: GameObject {

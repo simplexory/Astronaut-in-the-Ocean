@@ -2,7 +2,6 @@ import UIKit
 
 private extension String {
     static let modelName = "stone"
-    static let fileFormat = ".png"
 }
 
 final class Apex: GameObject {
