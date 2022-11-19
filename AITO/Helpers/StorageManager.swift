@@ -2,7 +2,7 @@ import Foundation
 
 private extension String {
     static let playerNameKey = "playerNameKey"
-    static let matchKey = "matchKey"
+    static let scoreKey = "scoreKey"
 }
 
 final class StorageManager {
@@ -18,13 +18,13 @@ final class StorageManager {
         return name
     }
     
-    func saveMatch(_ playerMatches: PlayerMatch) {
-        UserDefaults.standard.set(playerMatches, forKey: .matchKey)
+    func saveLastScore(_ score: Int) {
+        UserDefaults.standard.set(score, forKey: .scoreKey)
     }
     
-    func loadMatch() -> PlayerMatch? {
-        guard let match = UserDefaults.standard.object(forKey: .matchKey) as? PlayerMatch else { return nil }
-        return match
+    func loadLastScore() -> Int? {
+        guard let score = UserDefaults.standard.object(forKey: .scoreKey) as? Int else { return nil }
+        return score
     }
     
 }
