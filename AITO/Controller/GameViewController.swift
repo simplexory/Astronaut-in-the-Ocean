@@ -3,6 +3,16 @@ import UIKit
 private extension CGFloat {
     static let constraintShowConstant: CGFloat = 15
     static let constraintHideConstant: CGFloat = -100
+    static let buttonSize: CGFloat = 40
+    static let scoreFontSize: CGFloat = 20
+    static let gameOverFontSize: CGFloat = 30
+}
+
+private extension String {
+    static let retryButtonText: String = "RETRY"
+    static let menuButtonText: String = "MENU"
+    static let scoreText: String = "Score:"
+    static let gameOverText: String = "Game Over"
 }
 
 final class GameViewController: UIViewController {
@@ -10,13 +20,15 @@ final class GameViewController: UIViewController {
     // MARK: var / let
     
     /** TODO:
-            ADD FONTS
+     
             ADD BACKGROUND !
-            ADD BETTER ASTRONAUT DESIGN
+            ADD WATER COLISION WHILE PLAYER ON WATER
+            ADD BETTER DESIGN BY IMAGES
      */
     
     @IBOutlet weak var gameOverView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var gameOverLabel: UILabel!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var mainMenuButton: UIButton!
     @IBOutlet weak var inGameScoreLabel: UILabel!
@@ -54,8 +66,8 @@ final class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addTapGestureRecognizer()
-        self.setupAll()
-        self.setupGameOverView()
+        self.setupObjects()
+        self.setupView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,13 +77,12 @@ final class GameViewController: UIViewController {
     // MARK: setup model funcs
     
     private func setupPlayerModel() {
-        let size = self.view.frame.width / .contentDivider
-        let startPoint = CGPoint(
-            x: self.view.frame.width / 2 - size / 2,
-            y: self.view.frame.height - size * .paddingBottomPlayerMultiplyer)
+        let viewWidth = self.view.frame.width
+        let viewHeight = self.view.frame.height
         
-        self.player.setup(startPos: startPoint, size: size)
-        self.view.addSubview(self.player)
+        self.player.setup(viewWidth: viewWidth, viewHeight: viewHeight)
+        self.view.addSubview(self.player.waterCollision)
+        self.view.addSubview(self.player.model)
     }
     
     private func setupGameObjects() {
@@ -110,101 +121,40 @@ final class GameViewController: UIViewController {
         }
     }
     
-    //MARK: intersects funcs
+    //MARK: intersections block
     
-    private func checkCoinIntersect(layer: CALayer) {
-        for coin in self.coins.filter({ $0.isPresented }) {
-            if let frame = coin.frame {
-                if frame.intersects(layer.frame) {
-                    coin.setDefault()
-                    self.addScore(.scorePerCoin)
+    private func checkPlayerIntersections() {
+        guard let playerLayer = self.player.model.layer.presentation() else { return }
+        if !player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
+        
+        for object in currentObjects {
+            guard let objectFrame = object.frame else { break }
+            
+            if objectFrame.intersects(playerLayer.frame) {
+                if self.player.isJumpingNow == false {
+                    if object is Apex { self.gameOver() }
+                    if object is JumpBoard {
+                        self.player.jump()
+                        object.setDefault()
+                    }
                 }
-            }
-        }
-    }
-    
-    private func checkBoostIntersect(layer: CALayer) {
-        for boost in self.boosters.filter({ $0.isPresented }) {
-            if let frame = boost.frame {
-                if frame.intersects(layer.frame) {
-                    boost.setDefault()
+
+                if object is Coin {
+                    self.addScore()
+                    object.setDefault()
+                }
+
+                if object is Boost {
                     self.increaseSpeed()
+                    object.setDefault()
                 }
             }
-        }
-    }
-    
-    private func checkApexIntersect(layer: CALayer) {
-        for apex in self.apexes.filter({ $0.isPresented }) {
-            if let frame = apex.frame {
-                if frame.intersects(layer.frame) {
-                    self.gameOver()
-                }
-            }
-        }
-    }
-    
-    private func checkJumpBoardIntersect(layer: CALayer) {
-        for jumpBoard in self.jumpBoards.filter({ $0.isPresented }) {
-            if let frame = jumpBoard.frame {
-                if frame.intersects(layer.frame) {
-                    self.player.jump(duration: .defaultJumpDuration)
-                    jumpBoard.setDefault()
-                }
-            }
-        }
-    }
-    #warning("REMOVE THIS")
-//    private func badCheckIntersectIdea() {
-//        guard let playerLayer = self.player.layer.presentation() else { return }
-//
-//        if !player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
-//
-//        for object in currentObjects {
-//            guard let frame = object.frame else { break }
-//
-//            if frame.intersects(playerLayer.frame) {
-//                if self.player.isJumpingNow == false {
-//
-//                    if let _ = object as? Apex {
-//                        self.gameOver()
-//                    }
-//
-//                    if let _ = object as? JumpBoard {
-//                        self.player.jump(duration: .defaultJumpDuration)
-//                        object.setDefault()
-//                    }
-//                }
-//
-//                if let _ = object as? Coin {
-//                    self.addScore(.scorePerCoin)
-//                    object.setDefault()
-//                }
-//
-//                if let _ = object as? Boost {
-//                    self.increaseSpeed()
-//                    object.setDefault()
-//                }
-//            }
-//        }
-//    }
-    
-    private func checkObjectsIntersects() {
-        if let playerLayer = self.player.layer.presentation() {
-            self.checkCoinIntersect(layer: playerLayer)
-            self.checkBoostIntersect(layer: playerLayer)
-
-            if self.player.isJumpingNow { return }
-            guard player.inCorrectPosition() else { return self.gameOver() }
-
-            self.checkApexIntersect(layer: playerLayer)
-            self.checkJumpBoardIntersect(layer: playerLayer)
         }
     }
     
     private func setupFrameRateTimer() {
         self.frameRateTimer = Timer.scheduledTimer(withTimeInterval: .frameRate, repeats: true, block: { _ in
-            self.checkObjectsIntersects()
+            self.checkPlayerIntersections()
         })
     }
     
@@ -247,8 +197,8 @@ final class GameViewController: UIViewController {
         }
     }
     
-    private func addScore(_ number: Int) {
-        self.score += number * self.scoreMultiplyer
+    private func addScore() {
+        self.score += .scorePerCoin * self.scoreMultiplyer
         self.updateScore()
     }
     
@@ -295,16 +245,17 @@ final class GameViewController: UIViewController {
     }
     
     private func gameOver() {
+        StorageManager.shared.saveLastScore(self.score)
         self.gameOverView.isHidden = false
         self.gameInProgress = false
         self.switchTimers(false)
         self.player.hideModel(true)
         self.clearObjects()
-        self.scoreLabel.text = "Score: \(score)"
+        self.scoreLabel.setCyberverseFont(text: String("\(String.scoreText) \(score)"), size: .scoreFontSize)
         self.animateStatus(show: false)
     }
     
-    private func setupAll() {
+    private func setupObjects() {
         self.setupGameObjects()
         self.setupPlayerModel()
     }
@@ -318,7 +269,10 @@ final class GameViewController: UIViewController {
     
     // MARK: UI funcs
     
-    private func setupGameOverView() {
+    private func setupView() {
+        self.retryButton.setCyberpnukFont(text: .retryButtonText, size: .buttonSize)
+        self.mainMenuButton.setCyberpnukFont(text: .menuButtonText, size: .buttonSize)
+        self.gameOverLabel.setCyberverseFont(text: .gameOverText, size: .gameOverFontSize)
         self.gameOverView.dropShadow()
         self.gameOverView.roundCorners()
         self.retryButton.dropShadow()
@@ -328,8 +282,8 @@ final class GameViewController: UIViewController {
     }
     
     private func updateScore() {
-        self.inGameScoreLabel.text = "SCORE: \(self.score)"
-        self.inGameMultiplyerLabel.text = "x\(self.scoreMultiplyer)"
+        self.inGameScoreLabel.setCyberverseFont(text: "\(String.scoreText) \(self.score)", size: .scoreFontSize)
+        self.inGameMultiplyerLabel.setCyberverseFont(text: "x\(self.scoreMultiplyer)", size: .scoreFontSize)
     }
     
     private func animateStatus(show: Bool) {
