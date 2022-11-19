@@ -122,14 +122,11 @@ final class GameViewController: UIViewController {
     
     //MARK: intersections block
     
-    private func checkPlayerIntersections() {
-        guard let playerLayer = self.player.model.layer.presentation() else { return }
-        if !player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
-        
+    private func checkIntersections(for frame: CGRect) {
         for object in currentObjects {
             guard let objectFrame = object.frame else { break }
             
-            if objectFrame.intersects(playerLayer.frame) {
+            if objectFrame.intersects(frame) {
                 if self.player.isJumpingNow == false {
                     if object is Apex { self.gameOver() }
                     if object is JumpBoard {
@@ -153,7 +150,9 @@ final class GameViewController: UIViewController {
     
     private func setupFrameRateTimer() {
         self.frameRateTimer = Timer.scheduledTimer(withTimeInterval: .frameRate, repeats: true, block: { _ in
-            self.checkPlayerIntersections()
+            if !self.player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
+            guard let playerLayer = self.player.model.layer.presentation() else { return }
+            self.checkIntersections(for: playerLayer.frame)
         })
     }
     
