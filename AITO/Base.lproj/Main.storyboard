@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu_picture" translatesAutoresizingMaskIntoConstraints="NO" id="L9V-QT-19E">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu_picture" translatesAutoresizingMaskIntoConstraints="NO" id="L9V-QT-19E">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2X-7A-k7F">
@@ -45,7 +45,8 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="START GAME">
                                             <attributes>
-                                                <font key="NSFont" size="50" name="HelveticaNeue-Bold"/>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="50" name="HelveticaNeue"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -56,19 +57,21 @@
                                 </connections>
                             </button>
                             <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPN-hF-aU1" userLabel="Player Info">
-                                <rect key="frame" x="25" y="586.5" width="364" height="165.5"/>
+                                <rect key="frame" x="25" y="550" width="364" height="202"/>
                                 <subviews>
-                                    <textField opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Player" borderStyle="roundedRect" placeholder="Player" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="qBy-ui-xMs">
-                                        <rect key="frame" x="8" y="8" width="348" height="34"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textField opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Player" borderStyle="roundedRect" placeholder="Player" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="qBy-ui-xMs">
+                                        <rect key="frame" x="0.0" y="0.0" width="364" height="60"/>
                                         <color key="backgroundColor" red="0.30588235289999999" green="0.67843137249999996" blue="0.6588235294" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="bvc-tN-RX3"/>
+                                        </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="40"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last score: NO DATA" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbg-JQ-WMJ">
-                                        <rect key="frame" x="8" y="50" width="348" height="103"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last score: NO DATA" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbg-JQ-WMJ">
+                                        <rect key="frame" x="0.0" y="75" width="364" height="127"/>
                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -76,28 +79,37 @@
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="SPN-hF-aU1" secondAttribute="height" multiplier="2.2:1" id="OLQ-Il-nNC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jbg-JQ-WMJ" secondAttribute="trailing" id="BvV-cI-iwq"/>
+                                    <constraint firstItem="Jbg-JQ-WMJ" firstAttribute="top" secondItem="qBy-ui-xMs" secondAttribute="bottom" constant="15" id="Ha0-XY-BRA"/>
+                                    <constraint firstItem="Jbg-JQ-WMJ" firstAttribute="leading" secondItem="SPN-hF-aU1" secondAttribute="leading" id="MXI-yE-Qhx"/>
+                                    <constraint firstAttribute="width" secondItem="SPN-hF-aU1" secondAttribute="height" multiplier="1.8:1" id="OLQ-Il-nNC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Jbg-JQ-WMJ" secondAttribute="bottom" id="dCn-kw-PDK"/>
+                                    <constraint firstItem="qBy-ui-xMs" firstAttribute="top" secondItem="SPN-hF-aU1" secondAttribute="top" id="n84-Mc-faz"/>
+                                    <constraint firstAttribute="trailing" secondItem="qBy-ui-xMs" secondAttribute="trailing" id="oDK-Px-fc1"/>
+                                    <constraint firstItem="qBy-ui-xMs" firstAttribute="leading" secondItem="SPN-hF-aU1" secondAttribute="leading" id="yjy-kq-Z5X"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wQ5-Xi-3Bd"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="L9V-QT-19E" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" id="4vu-xt-vIy"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="SPN-hF-aU1" secondAttribute="trailing" constant="25" id="ArL-wP-hif"/>
-                            <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="L9V-QT-19E" secondAttribute="trailing" id="KCn-da-Pzu"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="bottom" secondItem="L9V-QT-19E" secondAttribute="bottom" id="Pwc-xn-jfp"/>
                             <constraint firstItem="SPN-hF-aU1" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" constant="25" id="ZiG-0c-Dd9"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="bottom" secondItem="J2X-7A-k7F" secondAttribute="bottom" constant="50" id="cWn-9S-hum"/>
                             <constraint firstItem="J2X-7A-k7F" firstAttribute="top" secondItem="SPN-hF-aU1" secondAttribute="bottom" constant="10" id="e2Y-5L-Y5o"/>
+                            <constraint firstItem="L9V-QT-19E" firstAttribute="trailing" secondItem="wQ5-Xi-3Bd" secondAttribute="trailing" id="iDi-3E-yqq"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="J2X-7A-k7F" secondAttribute="trailing" constant="30" id="jdg-pF-RSV"/>
+                            <constraint firstItem="L9V-QT-19E" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" id="pu6-Rh-dA3"/>
                             <constraint firstItem="L9V-QT-19E" firstAttribute="top" secondItem="wQ5-Xi-3Bd" secondAttribute="top" id="zWe-ab-x3q"/>
                             <constraint firstItem="J2X-7A-k7F" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" constant="30" id="zs4-Mc-jTc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="p9I-Lw-8Sr"/>
                     <connections>
+                        <outlet property="buttonBottomConstraint" destination="cWn-9S-hum" id="l1M-We-j7L"/>
                         <outlet property="mainMenuImageView" destination="L9V-QT-19E" id="iEe-qO-TRg"/>
+                        <outlet property="playerInfoView" destination="SPN-hF-aU1" id="Svw-WP-E0D"/>
                         <outlet property="playerNameTextField" destination="qBy-ui-xMs" id="Hts-f5-LFH"/>
                         <outlet property="scoreTableLabel" destination="Jbg-JQ-WMJ" id="boK-RS-X97"/>
                         <outlet property="startGameButton" destination="J2X-7A-k7F" id="NaG-mU-mGf"/>
@@ -115,7 +127,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbG-ge-kMJ">
+                            <view hidden="YES" alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbG-ge-kMJ">
                                 <rect key="frame" x="40" y="336.5" width="334" height="223"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdM-U7-Ive">
@@ -138,7 +150,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18f-xm-CeH">
                                         <rect key="frame" x="10" y="78" width="314" height="62.5"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tintColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="RETRY">
@@ -150,7 +162,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVz-Un-XSP">
                                         <rect key="frame" x="10" y="150.5" width="314" height="62.5"/>
-                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tintColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="MAIN MENU">
@@ -161,7 +173,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                <color key="backgroundColor" systemColor="systemCyanColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="aiP-Ka-G3K" secondAttribute="trailing" constant="10" id="3sC-Q9-HSZ"/>
                                     <constraint firstAttribute="trailing" secondItem="hdM-U7-Ive" secondAttribute="trailing" constant="10" id="591-Hp-1EC"/>
@@ -212,6 +224,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="gameOverLabel" destination="hdM-U7-Ive" id="lKE-1E-Ntn"/>
                         <outlet property="gameOverView" destination="wbG-ge-kMJ" id="rND-63-UA3"/>
                         <outlet property="gameStatusBottomConstraint" destination="ofc-r3-3rT" id="Zrp-Bn-SRv"/>
                         <outlet property="inGameMultiplyerLabel" destination="sT0-ag-m8S" id="Mxg-Yq-N7h"/>
@@ -228,8 +241,11 @@
     </scenes>
     <resources>
         <image name="menu_picture" width="640" height="782"/>
-        <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemCyanColor">
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
