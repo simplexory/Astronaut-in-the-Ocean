@@ -122,72 +122,82 @@ final class GameViewController: UIViewController {
     
     //MARK: intersections block
     
-    private func checkIntersections(for frame: CGRect) {
-        for object in currentObjects {
-            guard let objectFrame = object.frame else { break }
+    private func checkPlayerIntersections() {
+        if !self.player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
+        guard let playerLayer = self.player.model.layer.presentation() else { return }
+        let intersection = checkIntersections(for: playerLayer.frame)
+        
+        if intersection.status {
+            guard let object = intersection.object else { return }
             
-            if objectFrame.intersects(frame) {
-                if self.player.isJumpingNow == false {
-                    if object is Apex { self.gameOver() }
-                    if object is JumpBoard {
-                        self.player.jump()
-                        object.setDefault()
-                    }
-                }
-
-                if object is Coin {
-                    self.addScore()
-                    object.setDefault()
-                }
-
-                if object is Boost {
-                    self.increaseSpeed()
-                    object.setDefault()
-                }
+            if self.player.isJumpingNow == false {
+                if object is Apex { self.gameOver() }
+                if object is JumpBoard { self.player.jump(); object.setDefault() }
             }
+
+            if object is Coin { self.addScore(); object.setDefault() }
+            if object is Boost { self.increaseSpeed(); object.setDefault() }
         }
     }
     
-    private func setupFrameRateTimer() {
-        self.frameRateTimer = Timer.scheduledTimer(withTimeInterval: .frameRate, repeats: true, block: { _ in
-            if !self.player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
-            guard let playerLayer = self.player.model.layer.presentation() else { return }
-            self.checkIntersections(for: playerLayer.frame)
-        })
+    private func checkIntersections(for frame: CGRect) -> (status: Bool, object: GameObject?) {
+        for object in currentObjects {
+            guard let objectFrame = object.frame else { continue }
+            if objectFrame.intersects(frame) { return (true, object) }
+        }
+        
+        return (false, nil)
     }
     
     //MARK: setup timers funcs
+    
+    private func setupFrameRateTimer() {
+        self.frameRateTimer = Timer.scheduledTimer(withTimeInterval: .frameRate, repeats: true, block: { _ in
+            self.checkPlayerIntersections()
+        })
+    }
     
     private func setupSpawnApexTimer() {
         self.spawnApexTimer = Timer.scheduledTimer(
             withTimeInterval: .apexSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
                 guard let apex = self.apexes.filter({ $0.isPresented == false }).first else { return }
-                apex.start(multiply: self.speedMultiplyer)
+                apex.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: apex))
             })
     }
     
     private func setupSpawnBoostTimer() {
         self.spawnBoostTimer = Timer.scheduledTimer(withTimeInterval: .boostSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
             guard let boost = self.boosters.filter({ $0.isPresented == false }).first else { return }
-            boost.start(multiply: self.speedMultiplyer)
+            boost.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: boost))
         })
     }
     
     private func setupSpawnCoinsTimer() {
         self.spawnCoinsTimer = Timer.scheduledTimer(withTimeInterval: .coinsSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
             guard let coin = self.coins.filter({ $0.isPresented == false }).first else { return }
-            coin.start(multiply: self.speedMultiplyer)
+            coin.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: coin))
         })
     }
     
     private func setupSpawnJumpBoardTimer() {
         self.spawnJumpBoardTimer = Timer.scheduledTimer(withTimeInterval: .jumpBoardSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
             guard let jumpBoard = self.jumpBoards.filter({ $0.isPresented == false }).first else { return }
-            jumpBoard.start(multiply: self.speedMultiplyer)
+            jumpBoard.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: jumpBoard))
         })
     }
     
     //MARK: game flow funcs
+    
+    private func getRandomXPosition(for object: GameObject) -> CGFloat {
+        var x = CGFloat()
+        
+        repeat {
+            x = object.getRandomPosition()
+            object.model.frame.origin.x = x
+        } while self.checkIntersections(for: object.model.frame).status
+        
+        return x
+    }
     
     private func updateCurrentObjects() {
         for object in currentObjects {

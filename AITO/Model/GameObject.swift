@@ -56,9 +56,7 @@ class GameObject {
         }
     }
     
-    func start(multiply: Double) {
-        let x: CGFloat = .random(in: 0...self.maxX)
-        
+    func start(multiply: Double, x: CGFloat) {
         self.model.frame.origin.x = x
         self.model.frame.origin.y = self.minY
         self.isPresented = true
@@ -69,6 +67,10 @@ class GameObject {
             guard isCancelled else { return }
             self.setDefault()
         }
+    }
+    
+    func getRandomPosition() -> CGFloat {
+        return .random(in: 0...self.maxX)
     }
     
 }
