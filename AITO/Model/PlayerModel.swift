@@ -5,8 +5,8 @@ private extension TimeInterval {
 }
 
 private extension String {
-    static let modelName = "astronaut_"
-    static let waterName = "water_"
+    static let modelName = "player_"
+    static let waterName = "water_collision_"
 }
 
 private extension Int {
@@ -33,23 +33,23 @@ final class Player {
     func hideModel(_ status: Bool) {
         switch status {
         case true:
-            self.model.stopAnimating()
-            self.waterCollision.stopAnimating()
-            self.model.isHidden = true
-            self.waterCollision.isHidden = true
+            model.stopAnimating()
+            waterCollision.stopAnimating()
+            model.isHidden = true
+            waterCollision.isHidden = true
         case false:
-            self.model.startAnimating()
-            self.waterCollision.startAnimating()
-            self.model.isHidden = false
-            self.waterCollision.isHidden = false
+            model.startAnimating()
+            waterCollision.startAnimating()
+            model.isHidden = false
+            waterCollision.isHidden = false
         }
     }
     
     func jump() {
-        let startSize = self.model.frame.size
-        self.isJumpingNow = true
-        self.model.stopAnimating()
-        self.waterCollision.stopAnimating()
+        let startSize = model.frame.size
+        isJumpingNow = true
+        model.stopAnimating()
+        waterCollision.stopAnimating()
         
         UIView.animateKeyframes(withDuration: .defaultJumpDuration, delay: 0, options: .autoreverse) {
             let newSize = self.model.frame.size.width * Double.sizeWhileJumping
@@ -87,11 +87,11 @@ final class Player {
     }
     
     func inCorrectPosition() -> Bool {
-        guard let layer = self.model.layer.presentation()?.frame else { return true }
-        guard let superview = self.model.superview?.frame else { return true }
+        guard let layer = model.layer.presentation()?.frame else { return true }
+        guard let superview = model.superview?.frame else { return true }
         let currentXPos = layer.origin.x
         
-        if currentXPos <= 0 || currentXPos >= superview.width - self.model.frame.width {
+        if currentXPos <= 0 || currentXPos >= superview.width - model.frame.width {
             return false
         }
         
@@ -113,21 +113,21 @@ final class Player {
         let collisionWaterFrameSize = CGSize(width: collisionSize, height: collisionSize)
         
         
-        self.startPlayerPos = startPlayerPoint
-        self.model.frame = CGRect(origin: startPlayerPoint, size: playerFrameSize)
-        self.model.layer.contentsGravity = .resize
-        self.model.layer.borderWidth = 2
-        self.model.animationImages = setImageAnimationSet(imageName: .modelName)
-        self.model.animationDuration = .animationDuration
-        self.model.image = UIImage(named: .modelName + String(Int.startImageNumber) + .fileFormat)
+        startPlayerPos = startPlayerPoint
+        model.frame = CGRect(origin: startPlayerPoint, size: playerFrameSize)
+        model.layer.contentsGravity = .resize
+        model.layer.borderWidth = 2
+        model.animationImages = setImageAnimationSet(imageName: .modelName)
+        model.animationDuration = .animationDuration
+        model.image = UIImage(named: .modelName + String(Int.startImageNumber) + .fileFormat)
         
-        self.startWaterCollisionPos = startCollisionWaterPoint
-        self.waterCollision.frame = CGRect(origin: startCollisionWaterPoint, size: collisionWaterFrameSize)
-        self.waterCollision.layer.contentsGravity = .resize
-        self.waterCollision.layer.borderWidth = 2
-        self.waterCollision.animationImages = setImageAnimationSet(imageName: .waterName)
-        self.waterCollision.animationDuration = .animationDuration
-        self.waterCollision.layer.opacity = .waterCollisionOpacity
+        startWaterCollisionPos = startCollisionWaterPoint
+        waterCollision.frame = CGRect(origin: startCollisionWaterPoint, size: collisionWaterFrameSize)
+        waterCollision.layer.contentsGravity = .resize
+        waterCollision.layer.borderWidth = 2
+        waterCollision.animationImages = setImageAnimationSet(imageName: .waterName)
+        waterCollision.animationDuration = .animationDuration
+        waterCollision.layer.opacity = .waterCollisionOpacity
     }
     
     private func setImageAnimationSet(imageName: String) -> [UIImage] {
@@ -148,8 +148,8 @@ final class Player {
     func setStartPosition() {
         if let playerPos = startPlayerPos,
            let waterPos = startWaterCollisionPos {
-            self.model.frame.origin = playerPos
-            self.waterCollision.frame.origin = waterPos
+            model.frame.origin = playerPos
+            waterCollision.frame.origin = waterPos
         }
     }
     
