@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu_picture" translatesAutoresizingMaskIntoConstraints="NO" id="L9V-QT-19E">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2X-7A-k7F">
                                 <rect key="frame" x="30" y="762" width="354" height="50"/>
@@ -94,14 +94,14 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="SPN-hF-aU1" secondAttribute="trailing" constant="25" id="ArL-wP-hif"/>
-                            <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="bottom" secondItem="L9V-QT-19E" secondAttribute="bottom" id="Pwc-xn-jfp"/>
+                            <constraint firstAttribute="bottom" secondItem="L9V-QT-19E" secondAttribute="bottom" id="Pwc-xn-jfp"/>
                             <constraint firstItem="SPN-hF-aU1" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" constant="25" id="ZiG-0c-Dd9"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="bottom" secondItem="J2X-7A-k7F" secondAttribute="bottom" constant="50" id="cWn-9S-hum"/>
                             <constraint firstItem="J2X-7A-k7F" firstAttribute="top" secondItem="SPN-hF-aU1" secondAttribute="bottom" constant="10" id="e2Y-5L-Y5o"/>
-                            <constraint firstItem="L9V-QT-19E" firstAttribute="trailing" secondItem="wQ5-Xi-3Bd" secondAttribute="trailing" id="iDi-3E-yqq"/>
+                            <constraint firstItem="L9V-QT-19E" firstAttribute="trailing" secondItem="8YY-W6-6eY" secondAttribute="trailing" id="iDi-3E-yqq"/>
                             <constraint firstItem="wQ5-Xi-3Bd" firstAttribute="trailing" secondItem="J2X-7A-k7F" secondAttribute="trailing" constant="30" id="jdg-pF-RSV"/>
-                            <constraint firstItem="L9V-QT-19E" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" id="pu6-Rh-dA3"/>
-                            <constraint firstItem="L9V-QT-19E" firstAttribute="top" secondItem="wQ5-Xi-3Bd" secondAttribute="top" id="zWe-ab-x3q"/>
+                            <constraint firstItem="L9V-QT-19E" firstAttribute="leading" secondItem="8YY-W6-6eY" secondAttribute="leading" id="pu6-Rh-dA3"/>
+                            <constraint firstItem="L9V-QT-19E" firstAttribute="top" secondItem="8YY-W6-6eY" secondAttribute="top" id="zWe-ab-x3q"/>
                             <constraint firstItem="J2X-7A-k7F" firstAttribute="leading" secondItem="wQ5-Xi-3Bd" secondAttribute="leading" constant="30" id="zs4-Mc-jTc"/>
                         </constraints>
                     </view>
@@ -227,7 +227,7 @@
                             <constraint firstItem="RC5-pz-dnC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="iah-GL-Oyp"/>
                             <constraint firstItem="SgL-xu-2Jh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="lPZ-2I-fEb"/>
                             <constraint firstItem="wbG-ge-kMJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="oMj-Eb-UzS"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SgL-xu-2Jh" secondAttribute="bottom" constant="-100" id="ofc-r3-3rT"/>
+                            <constraint firstItem="RC5-pz-dnC" firstAttribute="bottom" secondItem="SgL-xu-2Jh" secondAttribute="bottom" constant="-66" id="ofc-r3-3rT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wbG-ge-kMJ" secondAttribute="trailing" constant="40" id="xDh-1R-PdI"/>
                         </constraints>
                     </view>
@@ -249,7 +249,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="menu_picture" width="640" height="782"/>
+        <image name="menu_picture" width="210" height="426.66665649414062"/>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
