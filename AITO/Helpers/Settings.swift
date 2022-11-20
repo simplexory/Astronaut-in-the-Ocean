@@ -3,7 +3,7 @@ import UIKit
 extension CGFloat {
     static let contentDivider: CGFloat = 6 // divide screen.width for models
     static let maxContentDivider: CGFloat = 10 // maximum divide screen.width for random apex size
-    static let paddingBottomPlayerMultiplyer: CGFloat = 2.8 // bottom player padding = x * model.height
+    static let playerPaddingMultiplyer: CGFloat = 7.5 // bottom player padding = view / x
     static let playerMovementDivider: CGFloat = 3.2 // movement = model.width / x
 }
 
