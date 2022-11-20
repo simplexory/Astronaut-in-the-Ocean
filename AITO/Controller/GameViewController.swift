@@ -19,14 +19,9 @@ private extension TimeInterval {
     static let statusAnimatingDuration: TimeInterval = 0.5
 }
 
-final class GameViewController: UIViewController {
+class GameViewController: UIViewController {
     
     // MARK: var / let
-    
-    /** TODO:
-            ADD BACKGROUND !
-            ADD BETTER DESIGN BY IMAGES
-     */
     
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var gameOverView: UIView!
@@ -39,6 +34,7 @@ final class GameViewController: UIViewController {
     @IBOutlet weak var gameStatusBottomConstraint: NSLayoutConstraint!
     
     private let player = Player()
+    private let background = Background()
     private var apexes: [GameObject] = []
     private var jumpBoards: [GameObject] = []
     private var coins: [GameObject] = []
@@ -56,10 +52,10 @@ final class GameViewController: UIViewController {
     private var currentObjects: [GameObject] {
         get {
             var objects: [GameObject] = []
-            objects.append(contentsOf: self.apexes.filter({ $0.isPresented }))
-            objects.append(contentsOf: self.coins.filter({ $0.isPresented }))
-            objects.append(contentsOf: self.jumpBoards.filter({ $0.isPresented }))
-            objects.append(contentsOf: self.boosters.filter({ $0.isPresented }))
+            objects.append(contentsOf: apexes.filter({ $0.isPresented }))
+            objects.append(contentsOf: coins.filter({ $0.isPresented }))
+            objects.append(contentsOf: jumpBoards.filter({ $0.isPresented }))
+            objects.append(contentsOf: boosters.filter({ $0.isPresented }))
             return objects
         }
     }
@@ -68,84 +64,83 @@ final class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addTapGestureRecognizer()
+        addTapGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupObjects()
-        self.setupView()
+        setupGameObjects()
+        setupView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.startGame()
+        startGame()
     }
     
     // MARK: setup model funcs
     
-    private func setupPlayerModel() {
-        let viewWidth = self.gameView.frame.width
-        let viewHeight = self.gameView.frame.height
-        
-        self.player.setup(viewWidth: viewWidth, viewHeight: viewHeight)
-        self.gameView.addSubview(self.player.waterCollision)
-        self.gameView.addSubview(self.player.model)
-    }
-    
     private func setupGameObjects() {
-        let maxY = self.gameView.frame.height
-        let maxX = self.gameView.frame.width
+        let maxY = gameView.frame.height
+        let maxX = gameView.frame.width
+        // setup player
+        player.setup(viewWidth: self.gameView.frame.width, viewHeight: self.gameView.frame.height)
+        // setup background
+        background.setup(screenWidth: self.gameView.frame.width, screenHeight: self.gameView.frame.height)
+        gameView.addSubview(background.bottomImageView)
+        gameView.addSubview(background.topImageView)
+        gameView.addSubview(player.waterCollision)
         // setup apexes
         for _ in 0..<Int.apexObjectsCount {
-            let apexSize: CGFloat = self.gameView.frame.width / .random(in: .contentDivider...CGFloat.maxContentDivider)
+            let apexSize: CGFloat = gameView.frame.width / .random(in: .contentDivider...CGFloat.maxContentDivider)
             let apex = Apex(size: apexSize, maxY: maxY, maxX: maxX)
             
-            self.apexes.append(apex)
-            self.gameView.addSubview(apex.model)
+            apexes.append(apex)
+            gameView.addSubview(apex.model)
         }
         //setup coins
-        let coinSize: CGFloat = self.gameView.frame.width / .maxContentDivider
+        let coinSize: CGFloat = gameView.frame.width / .maxContentDivider
         for _ in 0..<Int.coinObjectCount {
             let coin = Coin(size: coinSize, maxY: maxY, maxX: maxX)
             
-            self.coins.append(coin)
-            self.gameView.addSubview(coin.model)
+            coins.append(coin)
+            gameView.addSubview(coin.model)
         }
         // setup boosters
-        let boosterSize = self.gameView.frame.width / CGFloat.contentDivider
+        let boosterSize = gameView.frame.width / CGFloat.contentDivider
         for _ in 0..<Int.apexObjectsCount {
             let boost = Boost(size: boosterSize, maxY: maxY, maxX: maxX)
 
-            self.boosters.append(boost)
-            self.gameView.addSubview(boost.model)
+            boosters.append(boost)
+            gameView.addSubview(boost.model)
         }
         // setup jump boards
         for _ in 0..<Int.jumpBoardObjectsCount {
             let jumpBoard = JumpBoard(size: coinSize, maxY: maxY, maxX: maxX)
             
-            self.jumpBoards.append(jumpBoard)
-            self.gameView.addSubview(jumpBoard.model)
+            jumpBoards.append(jumpBoard)
+            gameView.addSubview(jumpBoard.model)
         }
+        gameView.addSubview(player.model)
     }
     
     //MARK: intersections block
     
     private func checkPlayerIntersections() {
-        if !self.player.inCorrectPosition() && !self.player.isJumpingNow { self.gameOver() }
-        guard let playerLayer = self.player.model.layer.presentation() else { return }
+        if !player.inCorrectPosition() && !player.isJumpingNow { gameOver() }
+        guard let playerLayer = player.model.layer.presentation() else { return }
         let intersection = checkIntersections(for: playerLayer.frame)
         
         if intersection.status {
             guard let object = intersection.object else { return }
             
-            if self.player.isJumpingNow == false {
-                if object is Apex { self.gameOver() }
-                if object is JumpBoard { self.player.jump(); object.setDefault() }
+            if player.isJumpingNow == false {
+                if object is Apex { gameOver() }
+                if object is JumpBoard { player.jump(); object.setDefault() }
             }
 
-            if object is Coin { self.addScore(); object.setDefault() }
-            if object is Boost { self.increaseSpeed(); object.setDefault() }
+            if object is Coin { addScore(); object.setDefault() }
+            if object is Boost { increaseSpeed(); object.setDefault() }
         }
     }
     
@@ -161,35 +156,35 @@ final class GameViewController: UIViewController {
     //MARK: setup timers funcs
     
     private func setupFrameRateTimer() {
-        self.frameRateTimer = Timer.scheduledTimer(withTimeInterval: .frameRate, repeats: true, block: { _ in
+        frameRateTimer = Timer.scheduledTimer(withTimeInterval: .frameRate, repeats: true, block: { _ in
             self.checkPlayerIntersections()
         })
     }
     
     private func setupSpawnApexTimer() {
-        self.spawnApexTimer = Timer.scheduledTimer(
-            withTimeInterval: .apexSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
+        spawnApexTimer = Timer.scheduledTimer(
+            withTimeInterval: .apexSpawnRate * speedMultiplyer, repeats: true, block: { _ in
                 guard let apex = self.apexes.filter({ $0.isPresented == false }).first else { return }
                 apex.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: apex))
             })
     }
     
     private func setupSpawnBoostTimer() {
-        self.spawnBoostTimer = Timer.scheduledTimer(withTimeInterval: .boostSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
+        spawnBoostTimer = Timer.scheduledTimer(withTimeInterval: .boostSpawnRate * speedMultiplyer, repeats: true, block: { _ in
             guard let boost = self.boosters.filter({ $0.isPresented == false }).first else { return }
             boost.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: boost))
         })
     }
     
     private func setupSpawnCoinsTimer() {
-        self.spawnCoinsTimer = Timer.scheduledTimer(withTimeInterval: .coinsSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
+        spawnCoinsTimer = Timer.scheduledTimer(withTimeInterval: .coinsSpawnRate * speedMultiplyer, repeats: true, block: { _ in
             guard let coin = self.coins.filter({ $0.isPresented == false }).first else { return }
             coin.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: coin))
         })
     }
     
     private func setupSpawnJumpBoardTimer() {
-        self.spawnJumpBoardTimer = Timer.scheduledTimer(withTimeInterval: .jumpBoardSpawnRate * self.speedMultiplyer, repeats: true, block: { _ in
+        spawnJumpBoardTimer = Timer.scheduledTimer(withTimeInterval: .jumpBoardSpawnRate * speedMultiplyer, repeats: true, block: { _ in
             guard let jumpBoard = self.jumpBoards.filter({ $0.isPresented == false }).first else { return }
             jumpBoard.start(multiply: self.speedMultiplyer, x: self.getRandomXPosition(for: jumpBoard))
         })
@@ -203,104 +198,103 @@ final class GameViewController: UIViewController {
         repeat {
             x = object.getRandomPosition()
             object.model.frame.origin.x = x
-        } while self.checkIntersections(for: object.model.frame).status
+        } while checkIntersections(for: object.model.frame).status
         
         return x
     }
     
     private func updateCurrentObjects() {
         for object in currentObjects {
-            object.update(multiply: self.speedMultiplyer)
+            object.update(multiply: speedMultiplyer)
         }
     }
     
     private func addScore() {
-        self.score += .scorePerCoin * self.scoreMultiplyer
-        self.updateScore()
+        score += .scorePerCoin * scoreMultiplyer
+        updateScore()
     }
     
     private func increaseSpeed() {
-        self.speedMultiplyer *= .speedMultiplyer
-        self.scoreMultiplyer += 1
-        self.updateCurrentObjects()
-        self.updateScore()
-        self.refreshTimers()
+        speedMultiplyer *= .speedMultiplyer
+        scoreMultiplyer += 1
+        updateCurrentObjects()
+        updateScore()
+        refreshTimers()
+        background.update(multiplyer: speedMultiplyer)
     }
     
     private func refreshTimers() {
-        self.switchTimers(false)
-        self.switchTimers(true)
+        switchTimers(false)
+        switchTimers(true)
     }
     
     private func switchTimers(_ bool: Bool) {
         switch bool {
         case true:
-            self.setupFrameRateTimer()
-            self.setupSpawnApexTimer()
-            self.setupSpawnJumpBoardTimer()
-            self.setupSpawnCoinsTimer()
-            self.setupSpawnBoostTimer()
+            setupFrameRateTimer()
+            setupSpawnApexTimer()
+            setupSpawnJumpBoardTimer()
+            setupSpawnCoinsTimer()
+            setupSpawnBoostTimer()
         case false:
-            self.frameRateTimer.invalidate()
-            self.spawnApexTimer.invalidate()
-            self.spawnCoinsTimer.invalidate()
-            self.spawnJumpBoardTimer.invalidate()
-            self.spawnBoostTimer.invalidate()
+            frameRateTimer.invalidate()
+            spawnApexTimer.invalidate()
+            spawnCoinsTimer.invalidate()
+            spawnJumpBoardTimer.invalidate()
+            spawnBoostTimer.invalidate()
         }
     }
     
     private func startGame() {
-        self.gameOverView.isHidden = true
-        self.speedMultiplyer = .defaultSpeedMultiplyer
-        self.scoreMultiplyer = .defaultScoreMultiplyer
-        self.score = .startScore
-        self.switchTimers(true)
-        self.gameInProgress = true
-        self.player.hideModel(false)
-        self.updateScore()
-        self.animateStatus(show: true)
+        gameOverView.isHidden = true
+        speedMultiplyer = .defaultSpeedMultiplyer
+        scoreMultiplyer = .defaultScoreMultiplyer
+        score = .startScore
+        switchTimers(true)
+        gameInProgress = true
+        player.hideModel(false)
+        updateScore()
+        animateStatus(show: true)
+        background.setDefault()
+        background.start(multiplyer: speedMultiplyer)
     }
     
     private func gameOver() {
-        StorageManager.shared.saveLastScore(self.score)
-        self.gameOverView.isHidden = false
-        self.gameInProgress = false
-        self.switchTimers(false)
-        self.player.hideModel(true)
-        self.clearObjects()
-        self.scoreLabel.setCyberverseFont(text: String("\(String.scoreText) \(score)"), size: .scoreFontSize)
-        self.animateStatus(show: false)
-    }
-    
-    private func setupObjects() {
-        self.setupGameObjects()
-        self.setupPlayerModel()
+        StorageManager.shared.saveLastScore(score)
+        background.stop()
+        gameOverView.isHidden = false
+        gameInProgress = false
+        switchTimers(false)
+        player.hideModel(true)
+        clearObjects()
+        scoreLabel.setCyberverseFont(text: String("\(String.scoreText) \(score)"), size: .scoreFontSize)
+        animateStatus(show: false)
     }
     
     private func clearObjects() {
         for object in currentObjects {
             object.setDefault()
         }
-        self.player.setStartPosition()
+        player.setStartPosition()
     }
     
     // MARK: UI funcs
     
     private func setupView() {
-        self.retryButton.setCyberpnukFont(text: .retryButtonText, size: .buttonSize)
-        self.mainMenuButton.setCyberpnukFont(text: .menuButtonText, size: .buttonSize)
-        self.gameOverLabel.setCyberverseFont(text: .gameOverText, size: .gameOverFontSize)
-        self.gameOverView.dropShadow()
-        self.gameOverView.roundCorners()
-        self.retryButton.dropShadow()
-        self.retryButton.roundCorners()
-        self.mainMenuButton.roundCorners()
-        self.mainMenuButton.dropShadow()
+        retryButton.setCyberpnukFont(text: .retryButtonText, size: .buttonSize)
+        mainMenuButton.setCyberpnukFont(text: .menuButtonText, size: .buttonSize)
+        gameOverLabel.setCyberverseFont(text: .gameOverText, size: .gameOverFontSize)
+        gameOverView.dropShadow()
+        gameOverView.roundCorners()
+        retryButton.dropShadow()
+        retryButton.roundCorners()
+        mainMenuButton.roundCorners()
+        mainMenuButton.dropShadow()
     }
     
     private func updateScore() {
-        self.inGameScoreLabel.setCyberverseFont(text: "\(String.scoreText) \(self.score)", size: .scoreFontSize)
-        self.inGameMultiplyerLabel.setCyberverseFont(text: "x\(self.scoreMultiplyer)", size: .scoreFontSize)
+        inGameScoreLabel.setCyberverseFont(text: "\(String.scoreText) \(score)", size: .scoreFontSize)
+        inGameMultiplyerLabel.setCyberverseFont(text: "x\(scoreMultiplyer)", size: .scoreFontSize)
     }
     
     private func animateStatus(show: Bool) {
@@ -319,28 +313,28 @@ final class GameViewController: UIViewController {
     
     private func addTapGestureRecognizer() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        self.view.addGestureRecognizer(recognizer)
+        view.addGestureRecognizer(recognizer)
     }
     
     @objc
     private func handleTap(_ recognizer: UITapGestureRecognizer) {
-        guard self.gameInProgress else { return }
+        guard gameInProgress else { return }
         
-        let xPoint = recognizer.location(in: self.view).x
+        let xPoint = recognizer.location(in: view).x
         
-        if xPoint <= self.view.frame.width / 2 {
-            self.player.detectPlayerMove(direction: .left)
+        if xPoint <= view.frame.width / 2 {
+            player.detectPlayerMove(direction: .left)
         } else {
-            self.player.detectPlayerMove(direction: .right)
+            player.detectPlayerMove(direction: .right)
         }
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         switch sender {
-        case self.retryButton:
-            self.startGame()
-        case self.mainMenuButton:
-            self.navigationController?.popViewController(animated: false)
+        case retryButton:
+            startGame()
+        case mainMenuButton:
+            navigationController?.popViewController(animated: false)
         default:
             break
         }
