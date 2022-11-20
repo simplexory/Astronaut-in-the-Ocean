@@ -1,7 +1,7 @@
 import UIKit
 
 private extension CGFloat {
-    static let constraintShowConstant: CGFloat = 15
+    static let constraintShowConstant: CGFloat = 20
     static let constraintHideConstant: CGFloat = -100
     static let buttonSize: CGFloat = 40
     static let scoreFontSize: CGFloat = 20
@@ -78,11 +78,11 @@ class GameViewController: UIViewController {
         startGame()
     }
     
-    // MARK: setup model funcs
+    // MARK: setup model func
     
     private func setupGameObjects() {
-        let maxY = gameView.frame.height
-        let maxX = gameView.frame.width
+        let maxY = self.view.frame.height
+        let maxX = self.view.frame.width
         // setup player
         player.setup(viewWidth: self.gameView.frame.width, viewHeight: self.gameView.frame.height)
         // setup background
