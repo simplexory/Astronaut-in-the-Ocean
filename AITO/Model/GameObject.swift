@@ -11,18 +11,18 @@ class GameObject {
     
     var frame: CGRect? {
         get {
-            guard let presentation = self.model.layer.presentation() else { return nil }
+            guard let presentation = model.layer.presentation() else { return nil }
             return presentation.frame
         }
     }
     
     init(size: CGFloat, maxY: CGFloat, maxX: CGFloat) {
-        self.minY = -(maxX / .contentDivider)
+        minY = -(maxX / .contentDivider)
         self.maxY = maxY
         self.maxX = maxX - size
 
-        self.model.frame.size = CGSize(width: size, height: size)
-        self.model.frame.origin = CGPoint(x: 0, y: minY)
+        model.frame.size = CGSize(width: size, height: size)
+        model.frame.origin = CGPoint(x: 0, y: minY)
         
         setup()
     }
@@ -30,23 +30,23 @@ class GameObject {
     func setup() {}
     
     func setDefault() {
-        self.isPresented = false
-        self.isUsed = false
-        self.model.isHidden = false
-        self.model.layer.removeAllAnimations()
-        self.model.frame.origin.y = self.minY
+        isPresented = false
+        isUsed = false
+        model.isHidden = false
+        model.layer.removeAllAnimations()
+        model.frame.origin.y = minY
     }
     
     func update(multiply: Double) {
-        guard let frame = self.frame else { return }
+        guard let frame = frame else { return }
 
         let path = -minY + maxY
         let currentY = frame.origin.y
         let coefficient = (1 - currentY / path) * multiply
         let newDurationTime: TimeInterval = .movementTime * coefficient
         
-        self.model.layer.removeAllAnimations()
-        self.model.frame.origin.y = currentY
+        model.layer.removeAllAnimations()
+        model.frame.origin.y = currentY
         
         UIView.animate(withDuration: newDurationTime, delay: 0, options: .curveLinear) {
             self.model.frame.origin.y = self.maxY
@@ -57,9 +57,9 @@ class GameObject {
     }
     
     func start(multiply: Double, x: CGFloat) {
-        self.model.frame.origin.x = x
-        self.model.frame.origin.y = self.minY
-        self.isPresented = true
+        model.frame.origin.x = x
+        model.frame.origin.y = minY
+        isPresented = true
         
         UIView.animate(withDuration: .movementTime * multiply, delay: 0, options: .curveLinear) {
             self.model.frame.origin.y = self.maxY
@@ -70,7 +70,7 @@ class GameObject {
     }
     
     func getRandomPosition() -> CGFloat {
-        return .random(in: 0...self.maxX)
+        return .random(in: 0...maxX)
     }
     
 }
