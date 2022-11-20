@@ -15,7 +15,7 @@ private extension Int {
 }
 
 private extension CGFloat {
-    static let waterCollisionSizeMultiplyer: CGFloat = 1.5
+    static let waterCollisionSizeMultiplyer: CGFloat = 2.7
 }
 
 private extension Float {
@@ -103,11 +103,11 @@ final class Player {
         let collisionSize = viewWidth / (.contentDivider / .waterCollisionSizeMultiplyer )
         let startPlayerPoint = CGPoint(
             x: viewWidth / 2 - playerSize / 2,
-            y: viewHeight - playerSize * .paddingBottomPlayerMultiplyer
+            y: viewHeight - (playerSize + viewHeight / .playerPaddingMultiplyer)
         )
         let startCollisionWaterPoint = CGPoint(
             x: viewWidth / 2 - collisionSize / 2,
-            y: startPlayerPoint.y + playerSize / 2
+            y: startPlayerPoint.y
         )
         let playerFrameSize = CGSize(width: playerSize, height: playerSize)
         let collisionWaterFrameSize = CGSize(width: collisionSize, height: collisionSize)
