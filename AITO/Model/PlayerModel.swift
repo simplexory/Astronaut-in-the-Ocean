@@ -119,7 +119,7 @@ final class Player {
         model.layer.borderWidth = 2
         model.animationImages = setImageAnimationSet(imageName: .modelName)
         model.animationDuration = .animationDuration
-        model.image = UIImage(named: .modelName + String(Int.startImageNumber) + .fileFormat)
+        model.image = UIImage(named: .modelName + String(Int.startImageNumber))
         
         startWaterCollisionPos = startCollisionWaterPoint
         waterCollision.frame = CGRect(origin: startCollisionWaterPoint, size: collisionWaterFrameSize)
@@ -134,7 +134,7 @@ final class Player {
         var imgListArray: [UIImage] = []
         
         for countValue in Int.startImageNumber...Int.endImageNumber {
-            let strImageName: String = imageName + String(countValue) + .fileFormat
+            let strImageName: String = imageName + String(countValue)
             let image = UIImage(named: strImageName)
             
             if let image = image {
