@@ -13,7 +13,6 @@
 		BB3ABB4F29293969004B8AB4 /* Cybrpnuk2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB3ABB4E29293969004B8AB4 /* Cybrpnuk2.ttf */; };
 		BB3ABB51292940C7004B8AB4 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB50292940C7004B8AB4 /* UIButton+Extension.swift */; };
 		BB3ABB53292943E7004B8AB4 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB52292943E7004B8AB4 /* UILabel+Extension.swift */; };
-		BB3ABB5529294528004B8AB4 /* Cyberthrone.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB3ABB5429294528004B8AB4 /* Cyberthrone.ttf */; };
 		BB3ABB5729294679004B8AB4 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB5629294679004B8AB4 /* UITextField+Extension.swift */; };
 		BB3ABB59292948E4004B8AB4 /* Cyberverse.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB3ABB58292948E4004B8AB4 /* Cyberverse.otf */; };
 		BB3ABB5B29297B93004B8AB4 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3ABB5A29297B93004B8AB4 /* Background.swift */; };
@@ -40,7 +39,6 @@
 		BB3ABB4E29293969004B8AB4 /* Cybrpnuk2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cybrpnuk2.ttf; sourceTree = "<group>"; };
 		BB3ABB50292940C7004B8AB4 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		BB3ABB52292943E7004B8AB4 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
-		BB3ABB5429294528004B8AB4 /* Cyberthrone.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cyberthrone.ttf; sourceTree = "<group>"; };
 		BB3ABB5629294679004B8AB4 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		BB3ABB58292948E4004B8AB4 /* Cyberverse.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cyberverse.otf; sourceTree = "<group>"; };
 		BB3ABB5A29297B93004B8AB4 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				BB3ABB58292948E4004B8AB4 /* Cyberverse.otf */,
-				BB3ABB5429294528004B8AB4 /* Cyberthrone.ttf */,
 				BB3ABB4E29293969004B8AB4 /* Cybrpnuk2.ttf */,
 			);
 			path = Fonts;
@@ -237,7 +234,6 @@
 			files = (
 				BB3ABB4F29293969004B8AB4 /* Cybrpnuk2.ttf in Resources */,
 				BB7248A429141B2F0057AB19 /* LaunchScreen.storyboard in Resources */,
-				BB3ABB5529294528004B8AB4 /* Cyberthrone.ttf in Resources */,
 				BB7248A129141B2F0057AB19 /* Assets.xcassets in Resources */,
 				BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */,
 				BB3ABB59292948E4004B8AB4 /* Cyberverse.otf in Resources */,
