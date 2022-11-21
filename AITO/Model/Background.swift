@@ -17,8 +17,8 @@ final class Background {
         (self.topImageView.image, self.bottomImageView.image) = (image, image)
         self.topImageView.frame = CGRect(origin: topOrigin, size: size)
         self.bottomImageView.frame = CGRect(origin: bottomOrigin, size: size)
-        self.topImageView.layer.contentsGravity = .resizeAspectFill
-        self.bottomImageView.layer.contentsGravity = .resizeAspectFill
+        self.topImageView.layer.contentsGravity = .resize
+        self.bottomImageView.layer.contentsGravity = .resize
     }
     
     private func animationCompletion(multiplyer: Double) {
@@ -42,24 +42,23 @@ final class Background {
     }
     
     func stop() {
+        if let topFrame = topImageView.layer.presentation()?.frame,
+           let bottomFrame = bottomImageView.layer.presentation()?.frame {
+            topImageView.frame.origin.y = topFrame.origin.y
+            bottomImageView.frame.origin.y = bottomFrame.origin.y
+        }
         topImageView.layer.removeAllAnimations()
         bottomImageView.layer.removeAllAnimations()
     }
     
     func update(multiplyer: Double) {
-        guard let topFrame = topImageView.layer.presentation()?.frame,
-              let bottomFrame = bottomImageView.layer.presentation()?.frame else { return }
-        
+        guard let frame = topImageView.layer.presentation()?.frame else { return }
         let path = topImageView.frame.height
-        let currentTopY = topFrame.origin.y
-        let currentBottomY = bottomFrame.origin.y
-        let coefficient = (1 - currentTopY / path) * multiplyer
+        let currentY = frame.origin.y
+        let coefficient = (1 - currentY / path) * multiplyer
         let newDuration: TimeInterval = .backgroundMovementTime * coefficient
         
         stop()
-        topImageView.frame.origin.y = currentTopY
-        bottomImageView.frame.origin.y = currentBottomY
-        
         
         UIView.animate(withDuration: newDuration, delay: 0, options: .curveLinear) {
             self.setAnimationPosition()
