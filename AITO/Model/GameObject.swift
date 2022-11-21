@@ -16,8 +16,8 @@ class GameObject {
         }
     }
     
-    init(size: CGFloat, maxY: CGFloat, maxX: CGFloat) {
-        minY = -(maxX / .contentDivider)
+    init(size: CGFloat, maxY: CGFloat, maxX: CGFloat, divider: CGFloat) {
+        minY = -(maxX / divider)
         self.maxY = maxY
         self.maxX = maxX - size
 
