@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "water_2.png",
+      "filename" : "water_collision_2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
