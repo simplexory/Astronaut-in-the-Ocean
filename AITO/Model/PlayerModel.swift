@@ -1,11 +1,15 @@
 import UIKit
 
 private extension TimeInterval {
-    static let animationDuration = 0.5
+    static let playerImagesAnimationDuration = 0.5
+    static let waterCollisionAnimationDuration = 0.35
+    static let playerMovementAnimationDuration = 0.3
+    static let waterCollisionAfterJumpAnimationDuration = 0.65
 }
 
 private extension String {
     static let modelName = "player_"
+    static let modelJumpName = "player_jump"
     static let waterName = "water_collision_"
 }
 
@@ -15,11 +19,11 @@ private extension Int {
 }
 
 private extension CGFloat {
-    static let waterCollisionSizeMultiplyer: CGFloat = 2.7
+    static let waterCollisionSizeMultiplyer: CGFloat = 1.6
 }
 
 private extension Float {
-    static let waterCollisionOpacity: Float = 0.2
+    static let waterCollisionOpacity: Float = 0.4
 }
 
 final class Player {
@@ -45,6 +49,15 @@ final class Player {
         }
     }
     
+    func animateWaterCollision() {
+        let collisionHeight = self.waterCollision.frame.size.height
+        self.waterCollision.frame.size.height = 0
+        
+        UIView.animate(withDuration: .waterCollisionAfterJumpAnimationDuration, delay: 0, options: .curveEaseOut) {
+            self.waterCollision.frame.size.height = collisionHeight
+        }
+    }
+    
     func jump() {
         let startSize = model.frame.size
         isJumpingNow = true
@@ -54,17 +67,18 @@ final class Player {
         UIView.animateKeyframes(withDuration: .defaultJumpDuration, delay: 0, options: .autoreverse) {
             let newSize = self.model.frame.size.width * Double.sizeWhileJumping
             
-            self.model.frame.size = CGSize(width: newSize, height: newSize)
+            self.model.frame.size = CGSize(width: newSize / 2, height: newSize)
         } completion: { _ in
             self.model.frame.size = startSize
             self.isJumpingNow = false
             self.model.startAnimating()
             self.waterCollision.startAnimating()
+            self.animateWaterCollision()
         }
     }
     
     func detectPlayerMove(direction: Move) {
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) {
+        UIView.animate(withDuration: .playerMovementAnimationDuration, delay: 0, options: .curveLinear) {
             let movementLenght = self.model.frame.width / .playerMovementDivider
             
             switch direction {
@@ -99,34 +113,32 @@ final class Player {
     }
     
     func setup(viewWidth: CGFloat, viewHeight: CGFloat) {
-        let playerSize = viewWidth / .contentDivider
-        let collisionSize = viewWidth / (.contentDivider / .waterCollisionSizeMultiplyer )
+        let playerSize = viewWidth / .playerContentDivider
+        let collisionSize = viewWidth / (.playerContentDivider / .waterCollisionSizeMultiplyer )
         let startPlayerPoint = CGPoint(
-            x: viewWidth / 2 - playerSize / 2,
+            x: viewWidth / 2 - playerSize / 4,
             y: viewHeight - (playerSize + viewHeight / .playerPaddingMultiplyer)
         )
         let startCollisionWaterPoint = CGPoint(
             x: viewWidth / 2 - collisionSize / 2,
-            y: startPlayerPoint.y
+            y: startPlayerPoint.y + playerSize / 3
         )
-        let playerFrameSize = CGSize(width: playerSize, height: playerSize)
+        let playerFrameSize = CGSize(width: playerSize / 2, height: playerSize)
         let collisionWaterFrameSize = CGSize(width: collisionSize, height: collisionSize)
         
         
         startPlayerPos = startPlayerPoint
         model.frame = CGRect(origin: startPlayerPoint, size: playerFrameSize)
         model.layer.contentsGravity = .resize
-        model.layer.borderWidth = 2
         model.animationImages = setImageAnimationSet(imageName: .modelName)
-        model.animationDuration = .animationDuration
-        model.image = UIImage(named: .modelName + String(Int.startImageNumber))
+        model.animationDuration = .playerImagesAnimationDuration
+        model.image = UIImage(named: .modelJumpName)
         
         startWaterCollisionPos = startCollisionWaterPoint
         waterCollision.frame = CGRect(origin: startCollisionWaterPoint, size: collisionWaterFrameSize)
         waterCollision.layer.contentsGravity = .resize
-        waterCollision.layer.borderWidth = 2
         waterCollision.animationImages = setImageAnimationSet(imageName: .waterName)
-        waterCollision.animationDuration = .animationDuration
+        waterCollision.animationDuration = .waterCollisionAnimationDuration
         waterCollision.layer.opacity = .waterCollisionOpacity
     }
     
