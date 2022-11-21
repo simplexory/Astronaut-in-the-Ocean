@@ -46,7 +46,7 @@ class GameViewController: UIViewController {
     private var spawnCoinsTimer = Timer()
     private var speedMultiplyer: Double = .defaultSpeedMultiplyer
     private var scoreMultiplyer: Int = .defaultScoreMultiplyer
-    private var gameInProgress = false
+    private var gameIsStarted = false
     private var score: Int = .startScore
     
     private var currentObjects: [GameObject] {
@@ -76,6 +76,8 @@ class GameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startGame()
+        background.setDefault()
+        background.start(multiplyer: speedMultiplyer)
     }
     
     // MARK: setup model func
@@ -92,31 +94,32 @@ class GameViewController: UIViewController {
         gameView.addSubview(player.waterCollision)
         // setup apexes
         for _ in 0..<Int.apexObjectsCount {
-            let apexSize: CGFloat = gameView.frame.width / .random(in: .contentDivider...CGFloat.maxContentDivider)
-            let apex = Apex(size: apexSize, maxY: maxY, maxX: maxX)
+            let randomDivider: CGFloat = .random(in: CGFloat.minApexContentDivider...CGFloat.maxApexContentDivider)
+            let apexSize: CGFloat = gameView.frame.width / randomDivider
+            let apex = Apex(size: apexSize, maxY: maxY, maxX: maxX, divider: randomDivider)
             
             apexes.append(apex)
             gameView.addSubview(apex.model)
         }
         //setup coins
-        let coinSize: CGFloat = gameView.frame.width / .maxContentDivider
+        let coinSize: CGFloat = gameView.frame.width / .coinContentDivider
         for _ in 0..<Int.coinObjectCount {
-            let coin = Coin(size: coinSize, maxY: maxY, maxX: maxX)
+            let coin = Coin(size: coinSize, maxY: maxY, maxX: maxX, divider: .coinContentDivider)
             
             coins.append(coin)
             gameView.addSubview(coin.model)
         }
         // setup boosters
-        let boosterSize = gameView.frame.width / CGFloat.contentDivider
+        let boosterSize = gameView.frame.width / CGFloat.boosterContentDivider
         for _ in 0..<Int.apexObjectsCount {
-            let boost = Boost(size: boosterSize, maxY: maxY, maxX: maxX)
+            let boost = Boost(size: boosterSize, maxY: maxY, maxX: maxX, divider: .boosterContentDivider)
 
             boosters.append(boost)
             gameView.addSubview(boost.model)
         }
         // setup jump boards
         for _ in 0..<Int.jumpBoardObjectsCount {
-            let jumpBoard = JumpBoard(size: coinSize, maxY: maxY, maxX: maxX)
+            let jumpBoard = JumpBoard(size: coinSize, maxY: maxY, maxX: maxX, divider: .coinContentDivider)
             
             jumpBoards.append(jumpBoard)
             gameView.addSubview(jumpBoard.model)
@@ -251,19 +254,19 @@ class GameViewController: UIViewController {
         scoreMultiplyer = .defaultScoreMultiplyer
         score = .startScore
         switchTimers(true)
-        gameInProgress = true
+        gameIsStarted = true
         player.hideModel(false)
         updateScore()
         animateStatus(show: true)
-        background.setDefault()
-        background.start(multiplyer: speedMultiplyer)
+        background.update(multiplyer: speedMultiplyer)
+        player.animateWaterCollision()
     }
     
     private func gameOver() {
         StorageManager.shared.saveLastScore(score)
         background.stop()
         gameOverView.isHidden = false
-        gameInProgress = false
+        gameIsStarted = false
         switchTimers(false)
         player.hideModel(true)
         clearObjects()
@@ -318,7 +321,7 @@ class GameViewController: UIViewController {
     
     @objc
     private func handleTap(_ recognizer: UITapGestureRecognizer) {
-        guard gameInProgress else { return }
+        guard gameIsStarted else { return }
         
         let xPoint = recognizer.location(in: view).x
         
