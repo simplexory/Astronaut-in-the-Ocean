@@ -14,7 +14,6 @@ extension Double {
     static let defaultSpeedMultiplyer = 1.0 // start speed
     static let speedMultiplyer = 0.95 // multiply speed by take() boost in game NOTE: < 1
     static let sizeWhileJumping = 2.5 // player model size while jumping
-    static let rotatePlayerDegree = 25.0 // player rotating degree if move left/right
 }
 
 extension Int {
@@ -32,12 +31,12 @@ extension Int {
 extension TimeInterval {
     static let frameRate: TimeInterval = 1 / 60 // framerate
     //  spawnrates
-    static let apexSpawnRate: TimeInterval = 3.25
+    static let apexSpawnRate: TimeInterval = 2.78
     static let jumpBoardSpawnRate: TimeInterval = 6.55
     static let coinsSpawnRate: TimeInterval = 1.53
     static let boostSpawnRate: TimeInterval = 10.1
     // -- // --
     static let movementTime: TimeInterval = 5.8 // base movement time for objects
     static let backgroundMovementTime: TimeInterval = 22.5 // base movement time for background
-    static let defaultJumpDuration: TimeInterval = 1.15  // player jump duration
+    static let defaultJumpDuration: TimeInterval = 1.25  // player jump duration
 }
