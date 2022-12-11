@@ -9,4 +9,9 @@ extension UILabel {
             self.attributedText = result
         }
     }
+    
+    @objc func input(textField: UITextField) {
+        guard let text = textField.text else { return }
+        self.setCyberverseFont(text: text, size: 35)
+    }
 }

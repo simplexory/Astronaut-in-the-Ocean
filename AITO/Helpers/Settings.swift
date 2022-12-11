@@ -12,7 +12,7 @@ extension CGFloat {
 
 extension Double {
     static let defaultSpeedMultiplyer = 1.0 // start speed
-    static let speedMultiplyer = 0.95 // multiply speed by take() boost in game NOTE: < 1
+    static let speedMultiplyer = 0.96 // multiply speed by taking Boost in game NOTE: < 1
     static let sizeWhileJumping = 2.5 // player model size while jumping
 }
 

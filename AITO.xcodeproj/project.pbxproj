@@ -20,9 +20,8 @@
 		BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72489B29141B2D0057AB19 /* GameViewController.swift */; };
 		BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB72489D29141B2D0057AB19 /* Main.storyboard */; };
 		BB7248A129141B2F0057AB19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB7248A029141B2F0057AB19 /* Assets.xcassets */; };
-		BB7248A429141B2F0057AB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7248A229141B2F0057AB19 /* LaunchScreen.storyboard */; };
 		BB7248B929144A840057AB19 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248B829144A840057AB19 /* PlayerModel.swift */; };
-		BB7248BC29145B9E0057AB19 /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248BB29145B9E0057AB19 /* Move.swift */; };
+		BB7248BC29145B9E0057AB19 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7248BB29145B9E0057AB19 /* Enums.swift */; };
 		BBBA6E30291807FB002048F9 /* ApexModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E2F291807FB002048F9 /* ApexModel.swift */; };
 		BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */; };
 		BBBA6E3A2918412F002048F9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E392918412F002048F9 /* UIView+Extension.swift */; };
@@ -30,6 +29,9 @@
 		BBBA6E6F2920478A002048F9 /* CoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E6E2920478A002048F9 /* CoinModel.swift */; };
 		BBBA6E71292048D8002048F9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E70292048D8002048F9 /* Settings.swift */; };
 		BBBA6E7929210C9C002048F9 /* BoostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E7829210C9C002048F9 /* BoostModel.swift */; };
+		BBF13FC3293E79D4006A8B79 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF13FC2293E79D4006A8B79 /* Date+Extension.swift */; };
+		BBF140372946650E006A8B79 /* MatchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF140362946650E006A8B79 /* MatchViewCell.swift */; };
+		BBF1403929466681006A8B79 /* DetailScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF1403829466681006A8B79 /* DetailScoreViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,10 +49,9 @@
 		BB72489B29141B2D0057AB19 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		BB72489E29141B2D0057AB19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB7248A029141B2F0057AB19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BB7248A329141B2F0057AB19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB7248A529141B2F0057AB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7248B829144A840057AB19 /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
-		BB7248BB29145B9E0057AB19 /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		BB7248BB29145B9E0057AB19 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		BBBA6E2F291807FB002048F9 /* ApexModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApexModel.swift; sourceTree = "<group>"; };
 		BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		BBBA6E392918412F002048F9 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -58,6 +59,9 @@
 		BBBA6E6E2920478A002048F9 /* CoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinModel.swift; sourceTree = "<group>"; };
 		BBBA6E70292048D8002048F9 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BBBA6E7829210C9C002048F9 /* BoostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostModel.swift; sourceTree = "<group>"; };
+		BBF13FC2293E79D4006A8B79 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		BBF140362946650E006A8B79 /* MatchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewCell.swift; sourceTree = "<group>"; };
+		BBF1403829466681006A8B79 /* DetailScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScoreViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 		BB72489629141B2D0057AB19 /* AITO */ = {
 			isa = PBXGroup;
 			children = (
+				BBF14035294664F4006A8B79 /* Cells */,
 				BBBA6E3829184038002048F9 /* Extension */,
 				BB7248B629144A3D0057AB19 /* Model */,
 				BB7248BD29145E6F0057AB19 /* Controller */,
@@ -114,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				BB72489729141B2D0057AB19 /* AppDelegate.swift */,
-				BB7248A229141B2F0057AB19 /* LaunchScreen.storyboard */,
 				BB72489D29141B2D0057AB19 /* Main.storyboard */,
 				BB7248A529141B2F0057AB19 /* Info.plist */,
 			);
@@ -147,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				BB3ABB4329255262004B8AB4 /* StorageManager.swift */,
-				BB7248BB29145B9E0057AB19 /* Move.swift */,
+				BB7248BB29145B9E0057AB19 /* Enums.swift */,
 				BBBA6E70292048D8002048F9 /* Settings.swift */,
 				BB3ABB45292553F7004B8AB4 /* PlayerMatch.swift */,
 			);
@@ -159,6 +163,7 @@
 			children = (
 				BB72489B29141B2D0057AB19 /* GameViewController.swift */,
 				BBBA6E36291839FC002048F9 /* MainMenuViewController.swift */,
+				BBF1403829466681006A8B79 /* DetailScoreViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -170,8 +175,17 @@
 				BB3ABB50292940C7004B8AB4 /* UIButton+Extension.swift */,
 				BB3ABB52292943E7004B8AB4 /* UILabel+Extension.swift */,
 				BB3ABB5629294679004B8AB4 /* UITextField+Extension.swift */,
+				BBF13FC2293E79D4006A8B79 /* Date+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		BBF14035294664F4006A8B79 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BBF140362946650E006A8B79 /* MatchViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +247,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB3ABB4F29293969004B8AB4 /* Cybrpnuk2.ttf in Resources */,
-				BB7248A429141B2F0057AB19 /* LaunchScreen.storyboard in Resources */,
 				BB7248A129141B2F0057AB19 /* Assets.xcassets in Resources */,
 				BB72489F29141B2D0057AB19 /* Main.storyboard in Resources */,
 				BB3ABB59292948E4004B8AB4 /* Cyberverse.otf in Resources */,
@@ -250,7 +263,7 @@
 				BBBA6E37291839FC002048F9 /* MainMenuViewController.swift in Sources */,
 				BBBA6E3A2918412F002048F9 /* UIView+Extension.swift in Sources */,
 				BB3ABB4A29256687004B8AB4 /* GameObject.swift in Sources */,
-				BB7248BC29145B9E0057AB19 /* Move.swift in Sources */,
+				BB7248BC29145B9E0057AB19 /* Enums.swift in Sources */,
 				BB3ABB4429255262004B8AB4 /* StorageManager.swift in Sources */,
 				BB3ABB5B29297B93004B8AB4 /* Background.swift in Sources */,
 				BB7248B929144A840057AB19 /* PlayerModel.swift in Sources */,
@@ -261,9 +274,12 @@
 				BBBA6E3C29184C05002048F9 /* JumpBoardModel.swift in Sources */,
 				BB3ABB5729294679004B8AB4 /* UITextField+Extension.swift in Sources */,
 				BBBA6E7929210C9C002048F9 /* BoostModel.swift in Sources */,
+				BBF140372946650E006A8B79 /* MatchViewCell.swift in Sources */,
 				BBBA6E30291807FB002048F9 /* ApexModel.swift in Sources */,
+				BBF1403929466681006A8B79 /* DetailScoreViewController.swift in Sources */,
 				BB72489C29141B2D0057AB19 /* GameViewController.swift in Sources */,
 				BBBA6E6F2920478A002048F9 /* CoinModel.swift in Sources */,
+				BBF13FC3293E79D4006A8B79 /* Date+Extension.swift in Sources */,
 				BB72489829141B2D0057AB19 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,14 +293,6 @@
 				BB72489E29141B2D0057AB19 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		BB7248A229141B2F0057AB19 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB7248A329141B2F0057AB19 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

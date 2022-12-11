@@ -33,6 +33,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var inGameMultiplyerLabel: UILabel!
     @IBOutlet weak var gameStatusBottomConstraint: NSLayoutConstraint!
     
+    var difficult: Difficult = .normal
     private let player = Player()
     private let background = Background()
     private var apexes: [GameObject] = []
@@ -48,6 +49,7 @@ class GameViewController: UIViewController {
     private var scoreMultiplyer: Int = .defaultScoreMultiplyer
     private var gameIsStarted = false
     private var score: Int = .startScore
+    private var startMatch: Date?
     
     private var currentObjects: [GameObject] {
         get {
@@ -149,7 +151,7 @@ class GameViewController: UIViewController {
     
     private func checkIntersections(for frame: CGRect) -> (status: Bool, object: GameObject?) {
         for object in currentObjects {
-            guard let objectFrame = object.frame else { continue }
+            guard let objectFrame = object.frame else { return (false, nil) }
             if objectFrame.intersects(frame) { return (true, object) }
         }
         
@@ -235,10 +237,15 @@ class GameViewController: UIViewController {
         switch bool {
         case true:
             setupFrameRateTimer()
+            RunLoop.main.add(frameRateTimer, forMode: .common)
             setupSpawnApexTimer()
+            RunLoop.main.add(spawnApexTimer, forMode: .common)
             setupSpawnJumpBoardTimer()
+            RunLoop.main.add(spawnJumpBoardTimer, forMode: .common)
             setupSpawnCoinsTimer()
+            RunLoop.main.add(spawnCoinsTimer, forMode: .common)
             setupSpawnBoostTimer()
+            RunLoop.main.add(spawnBoostTimer, forMode: .common)
         case false:
             frameRateTimer.invalidate()
             spawnApexTimer.invalidate()
@@ -260,18 +267,30 @@ class GameViewController: UIViewController {
         animateStatus(show: true)
         background.update(multiplyer: speedMultiplyer)
         player.animateWaterCollision()
+        startMatch = Date()
     }
     
     private func gameOver() {
-        StorageManager.shared.saveLastScore(score)
+        let match = saveMatch()
         background.stop()
         gameOverView.isHidden = false
         gameIsStarted = false
         switchTimers(false)
         player.hideModel(true)
         clearObjects()
-        scoreLabel.setCyberverseFont(text: String("\(String.scoreText) \(score)"), size: .scoreFontSize)
+        scoreLabel.setCyberverseFont(text: String("\(String.scoreText) \(match!.score) : \(match!.time.asMatchTime())"), size: .scoreFontSize)
         animateStatus(show: false)
+    }
+    
+    private func saveMatch() -> PlayerMatch? {
+        guard let startMatch = startMatch else { return nil }
+        let matchTime = startMatch - Date()
+        let username = StorageManager.shared.loadName()
+        let match = PlayerMatch(name: username, score: self.score, time: matchTime, difficult: self.difficult)
+        
+        StorageManager.shared.saveMatch(match: match)
+        
+        return match
     }
     
     private func clearObjects() {
