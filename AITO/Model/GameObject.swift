@@ -27,7 +27,9 @@ class GameObject {
         setup()
     }
     
-    func setup() {}
+    func setup() {
+        self.model.layer.contentsGravity = .resize
+    }
     
     func setDefault() {
         isPresented = false

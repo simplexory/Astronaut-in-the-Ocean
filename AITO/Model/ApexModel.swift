@@ -7,7 +7,6 @@ private extension String {
 final class Apex: GameObject {
     
     override func setup() {
-        self.model.layer.contentsGravity = .resize
         self.model.image = UIImage(named: .modelName)
     }
     
